@@ -1,0 +1,145 @@
+/* Estilo básico para o corpo */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para cabeçalhos */
+h1 {
+    color: #333;
+}
+
+/* Estilo para cabeçalhos */
+
+
+/* Estilo para botões */
+.btn {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+}
+
+/* Estilo para o logo */
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;  /* Espaçamento entre o logo e a borda da tela */
+    width: 150px;  /* Tamanho da logo */
+    height: auto;  /* Mantém a proporção */
+}
+
+/* Estilo do container do formulário */
+.form-container {
+    color: #15473b;
+    padding: 20px;
+    background-color: transparent;
+    border-style: none;
+    border-radius: 0px;
+    border-color: transparent;
+    
+    margin-left: 20px;  /* Ajusta o formulário mais à direita */
+}
+
+/* Estilo da imagem */
+#image {
+    margin-left: 50px;  /* Aumenta a distância entre o formulário e a imagem */
+}
+
+/* Estilo dos campos de formulário */
+.form-control {
+    color: #15473b;
+    border-radius: 8px;  /* Bordas arredondadas */
+    border: 0px solid #ced4da;  /* Borda suave */
+    padding: 10px;
+    box-shadow: 0 2px 4px rgb(10, 10, 10);  /* Sombra leve */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* Transições suaves */
+}
+
+/* Estilo ao focar nos campos de formulário */
+.form-control:focus {
+    border-color: #2F3061;  /* Cor de foco no campo */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);  /* Sombra azul ao focar */
+}
+
+/* Estilo para os botões */
+button.btn {
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: #e9ebed;
+    color: #181818;
+    border: none;
+    font-size: 14px;
+    width: auto;  /* Ajusta a largura automaticamente */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Sombra leve */
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito hover nos botões */
+button.btn:hover {
+    background-color: #0056b3;  /* Cor ao passar o mouse */
+}
+
+/* Estilo do rodapé */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    font-size: 12px;
+    color: #6c757d;
+    border-top: 1px solid #e9ecef;  /* Linha superior sutil */
+}
+
+/* Imagens fluidas para garantir que sejam responsivas */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilo para o texto branco */
+.text-white {
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 50px;  /* Espaçamento à esquerda */
+}
+
+/* Estilo para o texto azul */
+.text-blue {
+    color: #2f3061;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 50px;  /* Espaçamento à esquerda */
+}
+
+/* Classe personalizada para margens */
+.custom-margin {
+    margin-left: 40px;
+}
+
+.carousel-inner img {
+    width: 70%;
+    height: auto;
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+/* Media query para ajuste de responsividade */
+@media (max-width: 768px) {
+    .form-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #image {
+        margin-left: 0;
+        margin-top: 20px;  /* Ajuste a imagem no modo responsivo */
+    }
+}

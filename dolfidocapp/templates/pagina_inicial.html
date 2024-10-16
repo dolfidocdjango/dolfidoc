@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolfidoc</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Link para o CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    body {
+        background-image: url("{% static '/images/background_image_2.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    .carousel-inner img {
+        width: 70%;
+        height: auto;
+        margin: 0 auto; /* Centraliza horizontalmente */
+        border-radius: 50%; /* Torna a imagem circular */
+    }
+    .carousel-item .details {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .carousel-item .details h5 {
+        font-weight: bold;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro para melhor visibilidade */
+        border-radius: 50%;
+    }
+    #resultados {
+        background-color: rgba(204, 204, 204, 0.5); /* Transparência de 50% */
+        border: 3px solid #333; /* Borda de 3px */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra (drop shadow) */
+        border-radius: 15px;
+        padding: 20px;
+        max-height: 800px; /* Altura máxima dobrada */
+        overflow-y: auto; /* Rolagem vertical */
+        margin-top: 20px;
+    }
+    .highlighted-text {
+        font-size: 150%; /* Aumenta o tamanho da fonte em 50% */
+        font-weight: bold;
+        font-style: italic;
+        text-align: center;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .separator {
+        border-top: 1px solid #333;
+        margin: 10px 0;
+    }
+    .result-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    /* Media query para tornar o layout responsivo */
+    @media (max-width: 768px) {
+        .result-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .highlighted-text {
+            font-size: 120%; /* Ajusta o tamanho da fonte para telas menores */
+        }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{% static 'images/logo.png' %}" alt="Dolfidoc logo" class="logo">
+    </header>
+
+    <div class="container-fluid d-flex flex-column align-items-center">
+        <div class="row w-100">
+            <!-- Coluna da esquerda para o formulário e resultados -->
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div id="search-container" class="p-3">
+                    <form id="searchForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nome do Especialista" name="nome_completo">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="especialidade" required>
+                                <option disabled selected>Selecione a Especialidade Médica</option>
+                                <option>Cardiologista</option>
+                                <option>Ortopedia</option>
+                                <option>Dermatologia</option>
+                                <option>Pediatria</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="cidade" required>
+                                <option disabled selected>Selecione a Cidade</option>
+                                <option>São Paulo</option>
+                                <option>Rio de Janeiro</option>
+                                <option>Minas Gerais</option>
+                                <option>Salvador</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                    </form>
+                </div>
+
+                <div id="resultados" style="display: none;">
+                    <!-- Cabeçalho dos resultados com botão Recomeçar -->
+                    <div class="result-header">
+                        <h2>Resultados da Pesquisa</h2>
+                        <button id="restart" class="btn btn-secondary">Recomeçar</button>
+                    </div>
+                    <p id="especialidade"></p>
+                    <p id="cidade"></p>
+                    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner" id="carousel-inner">
+                            <!-- Imagens e informações serão inseridas aqui -->
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Próxima Imagem</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Botões para navegação de resultados -->
+                <div id="pagination-buttons" class="text-center mt-3" style="display: none;">
+                    <button id="prevResults" class="btn btn-primary">10 Resultados Anteriores</button>
+                    <button id="nextResults" class="btn btn-primary">Próximos 10 Resultados</button>
+                </div>
+            </div>
+
+            <!-- Coluna da direita para a imagem -->
+            <div class="col-lg-6 col-md-12 mb-4 d-flex justify-content-center align-items-center">  
+                <div class="text-center">
+                    <label for="image" class="highlighted-text text-blue">"Todas as consultas médicas em um único lugar."</label>
+                    <img id="image" src="{% static 'images/doctors.png' %}" alt="Doctors" class="img-fluid" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="text-center">Copyright © 2023. Todos os direitos reservados. Dolfidoc M.E. - CNPJ: 37.630.125/0001-05.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        var currentPage = 1; // Página atual para a paginação dos resultados
+
+        function loadPage(page) {
+            $.ajax({
+                url: "{% url 'medinfo' %}",
+                method: "GET",
+                data: $('#searchForm').serialize() + '&page=' + page,
+                success: function(data) {
+                    var carouselInner = $('#carousel-inner');
+                    carouselInner.empty();
+
+                    // Criar itens do carrossel
+                    Object.keys(data.medicos).forEach(function(crm, index) {
+                        var medicos = data.medicos[crm];
+                        var activeClass = index === 0 ? 'active' : '';
+                        var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
+                            '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" class="d-block" alt="Fonte: CRMS/CFM" style="width: 50%; height: auto; margin: 0 auto;">' +
+                            '<div class="details">' +
+                            '<h5>' + medicos[0].nome + '</h5>' +
+                            '<p><b><i>CRM: ' + crm + '</b></i></p>' +
+                            '<p><i>' + medicos[0].cidade + ', ' + medicos[0].uf + '</i></p>' +
+                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>';
+
+                        // Exibir informações adicionais se houver apenas 1 registro
+                        if (medicos.length === 1) {
+                            carouselItem += '<div></div><ul>';
+                            medicos.forEach(function(medico) {
+                                carouselItem += '<p><b>Nome Fantasia:</b> ' + medico.nome_fantasia + '</p>' +
+                                    '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
+                                    '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
+                                    '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
+                                    '</li>';
+                            });
+                            carouselItem += '</ul>';
+                        }
+
+                        // Exibir informações adicionais se houver múltiplos registros
+                        if (medicos.length > 1) {
+                            carouselItem += '<div></div><ul>';
+                            medicos.forEach(function(medico) {
+                                carouselItem += '<div class="separator"></div><li>' +
+                                    '<p><b>Nome Fantasia:</b> ' + medico.nome_fantasia + '</p>' +
+                                    '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
+                                    '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
+                                    '<p><b>Endereço</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
+                                    '</li>';
+                            });
+                            carouselItem += '</ul>';
+                        }
+
+                        carouselItem += '</div></div>';
+                        carouselInner.append(carouselItem);
+                    });
+
+                    $('#resultados').show();
+                    $('#pagination-buttons').show(); // Mostra os botões de paginação
+                    $('#search-container').hide(); // Esconde o formulário de busca
+                }
+            });
+        }
+
+        $('#searchForm').on('submit', function(event) {
+            event.preventDefault();
+            currentPage = 1; // Reinicia a página ao fazer uma nova busca
+            loadPage(currentPage);
+        });
+
+        $('#nextResults').on('click', function() {
+            currentPage++;
+            loadPage(currentPage);
+        });
+
+        $('#prevResults').on('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                loadPage(currentPage);
+            }
+        });
+
+        $('#restart').on('click', function() {
+            $('#resultados').hide();
+            $('#pagination-buttons').hide(); // Esconde os botões de paginação
+            $('#search-container').show(); // Mostra o formulário de busca novamente
+        });
+    });
+    </script>
+</body>
+</html>
