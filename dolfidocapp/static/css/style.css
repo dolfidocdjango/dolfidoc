@@ -3,6 +3,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+header {
+    padding: 20px; /* Ajuste o valor conforme necessário */
+    z-index: 10; /* Assegura que o header fique acima de outros elementos */
+}
+
 /* Estilo para cabeçalhos */
 h1 {
     color: #333;
