@@ -74,8 +74,8 @@ footer {
 
 .carousel-item {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: flex-start;
     padding: 20px;
     background-color: transparent;
     border: none;
@@ -94,9 +94,9 @@ footer {
     background-color: transparent;
 }
 
-.carousel-item ul {
-    list-style-type: none;
-    padding: 0;
+.carousel-item .medico-info {
+    width: 100%;
+    margin-top: 10px;
 }
 
 .carousel-control-prev-icon,
