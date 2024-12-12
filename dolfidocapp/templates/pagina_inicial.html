@@ -110,23 +110,23 @@
                     Object.keys(data.medicos).forEach(function(crm, index) {
                         var medicos = data.medicos[crm];
                         var activeClass = index === 0 ? 'active' : '';
-                        var carouselItem = '<div class="carousel-item d-flex align-items-start ' + activeClass + '">' +
+                        var carouselItem = '<div class="carousel-item d-flex flex-wrap align-items-start ' + activeClass + '">' +
                             '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM" class="img-fluid">' +
                             '<div class="details">' +
                             '<h5>' + medicos[0].nome + '</h5>' +
                             '<p><b><i>CRM: ' + crm + '</b></i></p>' +
                             '<p><i>' + medicos[0].cidade + ', ' + medicos[0].uf + '</i></p>' +
-                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>' +
-                            '<ul>';
+                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>';
 
                         medicos.forEach(function(medico) {
-                            carouselItem += '<li><p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
+                            carouselItem += '<div class="medico-info">' +
+                                '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
                                 '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
                                 '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
-                                '<p><b>Endereço:</b><br>' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p></li>';
+                                '<p><b>Endereço:</b><br>' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p></div>';
                         });
 
-                        carouselItem += '</ul></div></div>';
+                        carouselItem += '</div></div>';
                         carouselInner.append(carouselItem);
                     });
 
