@@ -130,12 +130,33 @@ footer {
     margin-left: 40px;
 }
 
-.carousel-inner img {
-    width: 70%;
-    height: auto;
-    margin: 0 auto; /* Centraliza horizontalmente */
+carousel-inner img {
+    width: 150px; /* Tamanho fixo para a imagem */
+    height: 150px; /* Tamanho fixo para manter a proporção */
+    border-radius: 50%; /* Torna a imagem circular */
+    margin-right: 20px; /* Espaço entre a imagem e os detalhes */
 }
 
+.carousel-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.carousel-item .details {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .carousel-item {
+        flex-direction: column; /* Muda para coluna em dispositivos menores */
+        align-items: center;
+    }
+    .carousel-inner img {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
 /* Media query para ajuste de responsividade */
 @media (max-width: 768px) {
     .form-container {
