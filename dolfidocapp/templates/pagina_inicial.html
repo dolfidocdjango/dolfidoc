@@ -24,61 +24,39 @@
         padding: 20px;
     }
     .carousel-inner img {
-        width: 150px; /* Tamanho fixo para a imagem circular */
+        width: 150px;
         height: 150px;
         border-radius: 50%;
         margin-right: 20px;
     }
-    .carousel-item .details {
-        flex: 1;
-    }
     .carousel-item {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: flex-start;
+        padding: 20px;
+        border-bottom: 1px solid #ccc; /* Separador entre itens */
+    }
+    .carousel-item .details {
+        flex: 1;
+        padding-left: 20px;
+    }
+    .carousel-item ul {
+        list-style-type: none;
+        padding: 0;
     }
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 50%;
     }
-    #resultados {
-        background-color: rgba(204, 204, 204, 0.5);
-        border: 3px solid #333;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border-radius: 15px;
-        padding: 20px;
-        max-height: 800px;
-        overflow-y: auto;
-        margin-top: 20px;
-    }
-    .highlighted-text {
-        font-size: 150%;
-        font-weight: bold;
-        font-style: italic;
-        text-align: center;
-        display: block;
-        margin-bottom: 10px;
-    }
-    .separator {
-        border-top: 1px solid #333;
-        margin: 10px 0;
-    }
-    .result-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
     @media (max-width: 768px) {
-        .result-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .highlighted-text {
-            font-size: 120%;
-        }
         .carousel-item {
-            flex-direction: column; /* Muda para colunas em telas menores */
+            flex-direction: column;
+            align-items: center;
+        }
+        .carousel-inner img {
+            margin-right: 0;
+            margin-bottom: 20px;
         }
     }
     </style>
@@ -179,21 +157,20 @@
                     Object.keys(data.medicos).forEach(function(crm, index) {
                         var medicos = data.medicos[crm];
                         var activeClass = index === 0 ? 'active' : '';
-                        var carouselItem = '<div class="carousel-item ' + activeClass + ' d-flex align-items-start">' +
+                        var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
                             '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
                             '<div class="details">' +
                             '<h5>' + medicos[0].nome + '</h5>' +
                             '<p><b><i>CRM: ' + crm + '</b></i></p>' +
                             '<p><i>' + medicos[0].cidade + ', ' + medicos[0].uf + '</i></p>' +
-                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p><ul>';
+                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>' +
+                            '<ul>';
 
                         medicos.forEach(function(medico) {
-                            carouselItem += '<li>' +
-                                '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
+                            carouselItem += '<li><p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
                                 '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
                                 '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
-                                '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
-                                '</li>';
+                                '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p></li>';
                         });
 
                         carouselItem += '</ul></div></div>';
