@@ -1,14 +1,6 @@
 /* Estilo básico para o corpo */
 body {
     font-family: 'Lato', sans-serif;
-    background-color: #D3DAE0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
 }
 
 header {
