@@ -130,12 +130,6 @@ footer {
     margin-left: 40px;
 }
 
-.carousel-inner img {
-    width: 70%;
-    height: auto;
-    margin: 0 auto; /* Centraliza horizontalmente */
-}
-
 /* Media query para ajuste de responsividade */
 @media (max-width: 768px) {
     .form-container {
