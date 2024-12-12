@@ -1,6 +1,6 @@
 /* Estilo básico para o corpo */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Lato, sans-serif;
     background-color: #D3DAE0;
     min-height: 100vh;
     display: flex;
@@ -9,113 +9,10 @@ body {
     align-items: center;
     padding: 20px;
 }
-    
-.carousel-inner img {
-    width: 150px; /* Tamanho fixo para a imagem */
-    height: 150px; /* Tamanho fixo para manter a proporção */
-    border-radius: 50%; /* Torna a imagem circular */
-    margin-right: 20px; /* Espaço entre a imagem e os detalhes */
-}
-
-.carousel-item {
-     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 20px;
-    background-color: transparent; /* Remover plano de fundo */
-    border: none; /* Remover bordas */
-}
-
-.carousel-item .details {
-    flex: 1;
-    padding-left: 20px;
-    background-color: transparent; /* Remover plano de fundo */
-}
-
-.carousel-item ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-@media (max-width: 768px) {
-    .carousel-item {
-        flex-direction: column; /* Muda para coluna em dispositivos menores */
-        align-items: center;
-    }
-    .carousel-inner img {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-    .result-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .highlighted-text {
-        font-size: 120%;
-    }
-    .form-container {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    #image {
-        margin-left: 0;
-        margin-top: 20px;  /* Ajuste a imagem no modo responsivo */
-    }
-}
-    
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-}
-    
-#resultados {
-    background-color: rgba(204, 204, 204, 0.5);
-    border: 3px solid #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    padding: 20px;
-    max-height: 800px;
-    overflow-y: auto;
-    margin-top: 20px;
-}
-.highlighted-text {
-    font-size: 150%;
-    font-weight: bold;
-    font-style: italic;
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-}
-.separator {
-    border-top: 1px solid #333;
-    margin: 10px 0;
-}
-.result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    }
 
 header {
-    padding: 20px; /* Ajuste o valor conforme necessário */
-    z-index: 10; /* Assegura que o header fique acima de outros elementos */
-}
-
-/* Estilo para cabeçalhos */
-h1 {
-    color: #333;
-}
-
-/* Estilo para cabeçalhos */
-
-
-/* Estilo para botões */
-.btn {
-    background-color: #007bff;
-    color: white;
-    border-radius: 4px;
+    padding: 20px;
+    z-index: 10;
 }
 
 /* Estilo para o logo */
@@ -123,45 +20,30 @@ h1 {
     position: absolute;
     top: 0;
     left: 0;
-    margin: 10px;  /* Espaçamento entre o logo e a borda da tela */
-    width: 150px;  /* Tamanho da logo */
-    height: auto;  /* Mantém a proporção */
-}
-
-/* Estilo do container do formulário */
-.form-container {
-    color: #15473b;
-    padding: 20px;
-    background-color: transparent;
-    border-style: none;
-    border-radius: 0px;
-    border-color: transparent;
-    
-    margin-left: 20px;  /* Ajusta o formulário mais à direita */
+    margin: 10px;
+    width: 150px;
+    height: auto;
 }
 
 /* Estilo da imagem */
 #image {
-    margin-left: 50px;  /* Aumenta a distância entre o formulário e a imagem */
+    margin-left: 50px;
 }
 
-/* Estilo dos campos de formulário */
 .form-control {
     color: #15473b;
-    border-radius: 8px;  /* Bordas arredondadas */
-    border: 0px solid #ced4da;  /* Borda suave */
+    border-radius: 8px;
+    border: 0;
     padding: 10px;
-    box-shadow: 0 2px 4px rgb(10, 10, 10);  /* Sombra leve */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* Transições suaves */
+    box-shadow: 0 2px 4px rgba(10, 10, 10, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilo ao focar nos campos de formulário */
 .form-control:focus {
-    border-color: #2F3061;  /* Cor de foco no campo */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);  /* Sombra azul ao focar */
+    border-color: #2F3061;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
 }
 
-/* Estilo para os botões */
 button.btn {
     border-radius: 8px;
     padding: 10px 15px;
@@ -169,17 +51,15 @@ button.btn {
     color: #181818;
     border: none;
     font-size: 14px;
-    width: auto;  /* Ajusta a largura automaticamente */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Sombra leve */
+    width: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
 }
 
-/* Efeito hover nos botões */
 button.btn:hover {
-    background-color: #0056b3;  /* Cor ao passar o mouse */
+    background-color: #0056b3;
 }
 
-/* Estilo do rodapé */
 footer {
     position: fixed;
     bottom: 0;
@@ -189,38 +69,49 @@ footer {
     padding: 10px 0;
     font-size: 12px;
     color: #6c757d;
-    border-top: 1px solid #e9ecef;  /* Linha superior sutil */
+    border-top: 1px solid #e9ecef;
 }
 
-/* Imagens fluidas para garantir que sejam responsivas */
-.img-fluid {
-    max-width: 100%;
-    height: auto;
+.carousel-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+    background-color: transparent;
+    border: none;
 }
 
-/* Estilo para o texto branco */
-.text-white {
-    color: white;
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-    margin-left: 50px;  /* Espaçamento à esquerda */
+.carousel-inner img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
 }
 
-/* Estilo para o texto azul */
-.text-blue {
-    color: #2f3061;
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-    margin-left: 50px;  /* Espaçamento à esquerda */
+.carousel-item .details {
+    flex: 1;
+    padding-left: 20px;
+    background-color: transparent;
 }
 
-/* Classe personalizada para margens */
-.custom-margin {
-    margin-left: 40px;
+.carousel-item ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .carousel-item {
+        flex-direction: column;
+        align-items: center;
+    }
+    .carousel-inner img {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
 }
