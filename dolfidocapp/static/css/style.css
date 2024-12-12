@@ -1,7 +1,7 @@
 /* Estilo básico para o corpo */
 body {
-    font-family: Lato, sans-serif;
-    background-color: #D3DAE0;
+    font-family: Arial, sans-serif;
+    background-color: #D3DAE0; /* Cor de fundo restaurada */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
