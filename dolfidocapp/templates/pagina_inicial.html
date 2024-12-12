@@ -3,7 +3,6 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dolfidoc</title>
 
@@ -16,11 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
     body {
-        /*background-image: url("{% static '/images/background_image_2.jpg' %}");*/
         background-color: #D3DAE0;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -29,35 +24,36 @@
         padding: 20px;
     }
     .carousel-inner img {
-        width: 70%;
-        height: auto;
-        margin: 0 auto; /* Centraliza horizontalmente */
-        border-radius: 50%; /* Torna a imagem circular */
+        width: 150px; /* Tamanho fixo para a imagem circular */
+        height: 150px;
+        border-radius: 50%;
+        margin-right: 20px;
     }
     .carousel-item .details {
-        text-align: center;
-        margin-top: 10px;
+        flex: 1;
     }
-    .carousel-item .details h5 {
-        font-weight: bold;
+    .carousel-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
     }
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
-        background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro para melhor visibilidade */
+        background-color: rgba(0, 0, 0, 0.5);
         border-radius: 50%;
     }
     #resultados {
-        background-color: rgba(204, 204, 204, 0.5); /* Transparência de 50% */
-        border: 3px solid #333; /* Borda de 3px */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra (drop shadow) */
+        background-color: rgba(204, 204, 204, 0.5);
+        border: 3px solid #333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         border-radius: 15px;
         padding: 20px;
-        max-height: 800px; /* Altura máxima dobrada */
-        overflow-y: auto; /* Rolagem vertical */
+        max-height: 800px;
+        overflow-y: auto;
         margin-top: 20px;
     }
     .highlighted-text {
-        font-size: 150%; /* Aumenta o tamanho da fonte em 50% */
+        font-size: 150%;
         font-weight: bold;
         font-style: italic;
         text-align: center;
@@ -73,14 +69,16 @@
         justify-content: space-between;
         align-items: center;
     }
-    /* Media query para tornar o layout responsivo */
     @media (max-width: 768px) {
         .result-header {
             flex-direction: column;
             align-items: flex-start;
         }
         .highlighted-text {
-            font-size: 120%; /* Ajusta o tamanho da fonte para telas menores */
+            font-size: 120%;
+        }
+        .carousel-item {
+            flex-direction: column; /* Muda para colunas em telas menores */
         }
     }
     </style>
@@ -122,7 +120,6 @@
                 </div>
 
                 <div id="resultados" style="display: none;">
-                    <!-- Cabeçalho dos resultados com botão Recomeçar -->
                     <div class="result-header">
                         <h2>Resultados da Pesquisa</h2>
                         <button id="restart" class="btn btn-secondary">Recomeçar</button>
@@ -144,7 +141,6 @@
                     </div>
                 </div>
 
-                <!-- Botões para navegação de resultados -->
                 <div id="pagination-buttons" class="text-center mt-3" style="display: none;">
                     <button id="prevResults" class="btn btn-primary">10 Resultados Anteriores</button>
                     <button id="nextResults" class="btn btn-primary">Próximos 10 Resultados</button>
@@ -169,7 +165,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
     $(document).ready(function() {
-        var currentPage = 1; // Página atual para a paginação dos resultados
+        var currentPage = 1;
 
         function loadPage(page) {
             $.ajax({
@@ -180,59 +176,40 @@
                     var carouselInner = $('#carousel-inner');
                     carouselInner.empty();
 
-                    // Criar itens do carrossel
                     Object.keys(data.medicos).forEach(function(crm, index) {
                         var medicos = data.medicos[crm];
                         var activeClass = index === 0 ? 'active' : '';
-                        var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
-                            '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" class="d-block" alt="Fonte: CRMS/CFM" style="width: 50%; height: auto; margin: 0 auto;">' +
+                        var carouselItem = '<div class="carousel-item ' + activeClass + ' d-flex align-items-start">' +
+                            '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
                             '<div class="details">' +
                             '<h5>' + medicos[0].nome + '</h5>' +
                             '<p><b><i>CRM: ' + crm + '</b></i></p>' +
                             '<p><i>' + medicos[0].cidade + ', ' + medicos[0].uf + '</i></p>' +
-                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>';
+                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p><ul>';
 
-                        // Exibir informações adicionais se houver apenas 1 registro
-                        if (medicos.length === 1) {
-                            carouselItem += '<div></div><ul>';
-                            medicos.forEach(function(medico) {
-                                carouselItem += '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
-                                    '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
-                                    '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
-                                    '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
-                                    '</li>';
-                            });
-                            carouselItem += '</ul>';
-                        }
+                        medicos.forEach(function(medico) {
+                            carouselItem += '<li>' +
+                                '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
+                                '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
+                                '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
+                                '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
+                                '</li>';
+                        });
 
-                        // Exibir informações adicionais se houver múltiplos registros
-                        if (medicos.length > 1) {
-                            carouselItem += '<div></div><ul>';
-                            medicos.forEach(function(medico) {
-                                carouselItem += '<div class="separator"></div><li>' +
-                                    '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
-                                    '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
-                                    '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
-                                    '<p><b>Endereço</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
-                                    '</li>';
-                            });
-                            carouselItem += '</ul>';
-                        }
-
-                        carouselItem += '</div></div>';
+                        carouselItem += '</ul></div></div>';
                         carouselInner.append(carouselItem);
                     });
 
                     $('#resultados').show();
-                    $('#pagination-buttons').show(); // Mostra os botões de paginação
-                    $('#search-container').hide(); // Esconde o formulário de busca
+                    $('#pagination-buttons').show();
+                    $('#search-container').hide();
                 }
             });
         }
 
         $('#searchForm').on('submit', function(event) {
             event.preventDefault();
-            currentPage = 1; // Reinicia a página ao fazer uma nova busca
+            currentPage = 1;
             loadPage(currentPage);
         });
 
@@ -250,8 +227,8 @@
 
         $('#restart').on('click', function() {
             $('#resultados').hide();
-            $('#pagination-buttons').hide(); // Esconde os botões de paginação
-            $('#search-container').show(); // Mostra o formulário de busca novamente
+            $('#pagination-buttons').hide();
+            $('#search-container').show();
         });
     });
     </script>
