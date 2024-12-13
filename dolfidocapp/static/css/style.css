@@ -285,6 +285,7 @@ input.form-control[name="TipoAnalise"] {
 }
 
 .info-left {
+    background-color: white;
     flex: 0 0 75%;
     padding-right: 15px;
 }
