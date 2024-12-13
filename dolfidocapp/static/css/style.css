@@ -271,16 +271,17 @@ input.form-control[name="TipoAnalise"] {
 }
 
 .info-container {
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 20px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: transparent;
+    padding: 15px 0;
 }
 
 .info-row {
-    display: flex;
+    background-color: white;
+    border-radius: 10px;
     margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
 }
 
 .info-left {
@@ -294,17 +295,13 @@ input.form-control[name="TipoAnalise"] {
     align-items: center;
     justify-content: flex-end;
     padding-left: 15px;
+    border-left: 1px solid #e0e0e0;
 }
 
 .info-right p {
     font-size: 1.2em;
     font-weight: bold;
     color: #2f3061;
-}
-
-.separator {
-    border-top: 1px solid #e0e0e0;
-    margin: 15px 0;
 }
 
 @media (max-width: 768px) {
@@ -319,6 +316,8 @@ input.form-control[name="TipoAnalise"] {
 
     .info-right {
         justify-content: flex-start;
+        border-left: none;
+        border-top: 1px solid #e0e0e0;
     }
 }
 
