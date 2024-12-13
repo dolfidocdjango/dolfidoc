@@ -271,12 +271,16 @@ input.form-control[name="TipoAnalise"] {
 }
 
 .info-container {
-    display: flex;
     background-color: white;
     border-radius: 10px;
     margin-top: 20px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 15px;
 }
 
 .info-left {
@@ -288,8 +292,7 @@ input.form-control[name="TipoAnalise"] {
     flex: 0 0 25%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-left: 1px solid #e0e0e0;
+    justify-content: flex-end;
     padding-left: 15px;
 }
 
@@ -299,8 +302,13 @@ input.form-control[name="TipoAnalise"] {
     color: #2f3061;
 }
 
+.separator {
+    border-top: 1px solid #e0e0e0;
+    margin: 15px 0;
+}
+
 @media (max-width: 768px) {
-    .info-container {
+    .info-row {
         flex-direction: column;
     }
 
@@ -310,7 +318,6 @@ input.form-control[name="TipoAnalise"] {
     }
 
     .info-right {
-        border-left: none;
-        border-top: 1px solid #e0e0e0;
+        justify-content: flex-start;
     }
 }
