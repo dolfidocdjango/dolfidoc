@@ -105,47 +105,47 @@
         <div class="row w-100">
             <!-- Coluna da esquerda para o formulário e resultados -->
             <div class="col-lg-6 col-md-12 mb-4">
-                <div id="search-container" class="p-3">
-                    <form id="searchForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control text-center rounded-top" placeholder="Nome do Especialista" name="nome_completo" style="width: 70%;">
-                        </div>
-                        <div class="form-group">
-                        <select class="form-control text-center" name="especialidade" style="width: 70%;" required >
-                                <option disabled selected>Especialidade Médica</option>
-                                <option>Cardiologista</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="cidade" style="width: 70%;" required>
-                                <option disabled selected>Selecione a Cidade</option>
-                                <option>Salvador</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control border text-center" id="id_date" name="Data" required placeholder="Data Desejada" style="width: 70%; height: 100%; background-color: white;">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="PeriodoDesejado" style="width: 70%;" required>
-                                <option disabled selected>Periodo Desejado</option>
-                                <option>Manhã</option>
-                                <option>Tarde</option>
-                                <option>Noite</option>
-                                <option>Madrugada</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center rounded-bot" name="TipoAnalise" style="width: 70%;" required>
-                                <option disabled selected>Tipo de Analise</option>
-                                <option>Preço</option>
-                            </select>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary" style="color: #2f3061;">Enviar</button>
-                        </div>
-                    </form>
-                </div>
+            <div id="search-container" class="p-3">
+                <form id="searchForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control text-center rounded-top" placeholder="Nome do Especialista" name="nome_completo" style="width: 70%;">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center" name="especialidade" style="width: 70%;" required>
+                            <option disabled selected>Especialidade Médica</option>
+                            <option>Cardiologista</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center" name="cidade" style="width: 70%;" required>
+                            <option disabled selected>Selecione a Cidade</option>
+                            <option>Salvador</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control border text-center" id="id_date" name="Data" required placeholder="Data Desejada" style="width: 70%; height: 100%; background-color: white;">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center" name="PeriodoDesejado" style="width: 70%;" required>
+                            <option disabled selected>Periodo Desejado</option>
+                            <option>Manhã</option>
+                            <option>Tarde</option>
+                            <option>Noite</option>
+                            <option>Madrugada</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center rounded-bot" name="TipoAnalise" style="width: 70%;" required>
+                            <option disabled selected>Tipo de Analise</option>
+                            <option>Preço</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="color: #2f3061;">Enviar</button>
+                    </div>
+                </form>
+            </div>
 
                 <div id="resultados" style="display: none;">
                     <!-- Cabeçalho dos resultados com botão Recomeçar -->
