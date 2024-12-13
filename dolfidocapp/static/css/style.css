@@ -13,12 +13,6 @@ h1 {
     color: #333;
 }
 
-/* Estilo para cabeçalhos */
-. header-buttons {
-    float: right;
-    
-}
-
 /* Estilo para botões */
 .btn {
     background-color: #007bff;
@@ -26,7 +20,23 @@ h1 {
     border-radius: 4px;
 }
 
-/* Estilo para o logo */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #D3DAE0; /* Mesma cor do fundo do body */
+    z-index: 1000;
+}
+
+.logo-container {
+    flex: 0 0 auto;
+}
+
 .logo {
     position: absolute;
     top: 0;
@@ -34,6 +44,44 @@ h1 {
     margin: 10px;  /* Espaçamento entre o logo e a borda da tela */
     width: 150px;  /* Tamanho da logo */
     height: auto;  /* Mantém a proporção */
+}
+
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.btn-invisible {
+    background: none;
+    border: none;
+    color: #2f3061;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.btn-invisible:hover {
+    color: darkblue;
+}
+
+/* Ajuste para o conteúdo principal não ficar escondido atrás do header */
+body {
+    padding-top: 70px; /* Ajuste este valor conforme a altura do seu header */
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-buttons {
+        margin-top: 10px;
+    }
 }
 
 /* Estilo do container do formulário */
