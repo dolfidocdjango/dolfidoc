@@ -269,3 +269,48 @@ input.form-control[name="TipoAnalise"] {
         margin-bottom: 20px;
     }
 }
+
+.info-container {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.info-left {
+    flex: 0 0 75%;
+    padding-right: 15px;
+}
+
+.info-right {
+    flex: 0 0 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #e0e0e0;
+    padding-left: 15px;
+}
+
+.info-right p {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2f3061;
+}
+
+@media (max-width: 768px) {
+    .info-container {
+        flex-direction: column;
+    }
+
+    .info-left, .info-right {
+        flex: 0 0 100%;
+        padding: 10px 0;
+    }
+
+    .info-right {
+        border-left: none;
+        border-top: 1px solid #e0e0e0;
+    }
+}
