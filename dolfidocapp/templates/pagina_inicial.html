@@ -211,7 +211,7 @@
                         var medicos = data.medicos[crm];
                         var activeClass = index === 0 ? 'active' : '';
                         var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
-                            '<div class="resultado-item">' +
+                        '<div class="resultado-item">' +
                             '<div class="resultado-imagem">' +
                                 '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
                             '</div>' +
@@ -219,37 +219,45 @@
                                 '<h5>' + medicos[0].nome + '</h5>' +
                                 '<p><b><i>CRM: ' + crm + '</b></i></p>' +
                                 '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>' +
-                                '<p><b>Requisito: </b>Idade máxima 12 anos</p>';
-
-                        // Exibir informações adicionais se houver apenas 1 registro
-                        if (medicos.length === 1) {
-                            carouselItem += '<div></div><ul>';
-                            medicos.forEach(function(medico) {
-                                carouselItem += '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
-                                    '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
-                                    '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
-                                    '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
-                                    '</li>';
-                            });
-                            carouselItem += '</ul>';
-                        }
-
-                        // Exibir informações adicionais se houver múltiplos registros
-                        if (medicos.length > 1) {
-                            carouselItem += '<div></div><ul>';
-                            medicos.forEach(function(medico) {
-                                carouselItem += '<div class="separator"></div><li>' +
+                                '<p><b>Requisito: </b>Idade máxima 12 anos</p>' +
+                            '</div>' +
+                        '</div>';
+                    
+                    // Exibir informações adicionais se houver apenas 1 registro
+                    if (medicos.length === 1) {
+                        carouselItem += '<div class="info-container">' +
+                            '<div class="info-left">' +
+                                '<p><b>Empresa:</b> ' + medicos[0].nome_fantasia + '</p>' +
+                                '<p><b>CNPJ:</b> ' + medicos[0].cnpj + '</p>' +
+                                '<p><b>Endereço:</b> ' + medicos[0].logradouro + ', ' + medicos[0].numero + ' ' + medicos[0].complemento + '</p>' +
+                            '</div>' +
+                            '<div class="info-right">' +
+                                '<p><b>Valor:</b> R$ ' + medicos[0].valor + '</p>' +
+                            '</div>' +
+                        '</div>';
+                    }
+                    
+                    // Exibir informações adicionais se houver múltiplos registros
+                    if (medicos.length > 1) {
+                        carouselItem += '<div class="info-container">';
+                        medicos.forEach(function(medico, index) {
+                            if (index > 0) carouselItem += '<div class="separator"></div>';
+                            carouselItem += '<div class="info-row">' +
+                                '<div class="info-left">' +
                                     '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
                                     '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
+                                    '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
+                                '</div>' +
+                                '<div class="info-right">' +
                                     '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
-                                    '<p><b>Endereço</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
-                                    '</li>';
-                            });
-                            carouselItem += '</ul>';
-                        }
-
-                        carouselItem += '</div></div>';
-                        carouselInner.append(carouselItem);
+                                '</div>' +
+                            '</div>';
+                        });
+                        carouselItem += '</div>';
+                    }
+                    
+                    carouselItem += '</div>';
+                    carouselInner.append(carouselItem);
                     });
 
                     $('#resultados').show();
