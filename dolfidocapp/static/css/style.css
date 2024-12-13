@@ -86,7 +86,7 @@ footer {
     height: 150px;
     border-radius: 50%;
     margin-right: 20px;
-    flex-shrink: 0; /* Impede que a imagem encolha */
+    flex-shrink: 0;
 }
 
 .carousel-item .details {
@@ -96,23 +96,17 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    max-width: calc(100% - 170px); /* Ajusta a largura máxima */
 }
 
 .carousel-item .medico-info {
-    width: 100%;
     margin-top: 10px;
-    word-wrap: break-word; /* Quebra o texto longo */
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
+    word-wrap: break-word;
 }
 
 .carousel-item h5,
 .carousel-item p {
-    margin: 5px 0; /* Espaçamento entre os elementos */
+    margin: 5px 0;
 }
 
 @media (max-width: 768px) {
@@ -123,5 +117,9 @@ footer {
     .carousel-inner img {
         margin-right: 0;
         margin-bottom: 20px;
+    }
+    .carousel-item .details {
+        max-width: 100%;
+        padding-left: 0;
     }
 }
