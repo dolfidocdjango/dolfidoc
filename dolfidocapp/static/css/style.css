@@ -183,8 +183,8 @@ input.form-control[name="TipoAnalise"] {
     border: none;
     box-shadow: none;
     padding: 20px;
-    max-height: none;
-    overflow-y: visible;
+    max-height: 800px;
+    overflow-y: auto;
     margin-top: 20px;
 }
 
