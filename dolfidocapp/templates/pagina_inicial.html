@@ -209,12 +209,15 @@
                         var medicos = data.medicos[crm];
                         var activeClass = index === 0 ? 'active' : '';
                         var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
-                            '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" class="d-block" alt="Fonte: CRMS/CFM" style="width: 50%; height: auto; margin: 0 auto;">' +
-                            '<div class="details">' +
-                            '<h5>' + medicos[0].nome + '</h5>' +
-                            '<p><b><i>CRM: ' + crm + '</b></i></p>' +
-                            '<p><i>' + medicos[0].cidade + ', ' + medicos[0].uf + '</i></p>' +
-                            '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>';
+                            '<div class="resultado-item">' +
+                            '<div class="resultado-imagem">' +
+                                '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
+                            '</div>' +
+                            '<div class="resultado-dados">' +
+                                '<h5>' + medicos[0].nome + '</h5>' +
+                                '<p><b><i>CRM: ' + crm + '</b></i></p>' +
+                                '<p><i>' + medicos[0].cidade + ', ' + medicos[0].uf + '</i></p>' +
+                                '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>';
 
                         // Exibir informações adicionais se houver apenas 1 registro
                         if (medicos.length === 1) {
