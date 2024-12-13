@@ -45,10 +45,16 @@
     .carousel-item .details h5 {
         font-weight: bold;
     }
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+    }
+    
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
-        background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro para melhor visibilidade */
+        background-color: rgba(0,0,0,0.5);
         border-radius: 50%;
+        padding: 10px;
     }
     #resultados {
         background-color: D3DAE0;
@@ -155,15 +161,17 @@
                     <p id="cidade"></p>
                     <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="false">
                         <div class="carousel-inner" id="carousel-inner">
-                            <!-- Imagens e informações serão inseridas aqui -->
+                            <!-- Imagens e informações serão inseridas aqui dinamicamente -->
                         </div>
                         <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Anterior</span>
                         </a>
-                        <a class= "carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Próxima Imagem</span>
+                        </a>
+                    </div>
                         </a>
                     </div>
                 </div>
@@ -208,8 +216,8 @@
                     Object.keys(data.medicos).forEach(function(crm, index) {
                         var medicos = data.medicos[crm];
                         var activeClass = index === 0 ? 'active' : '';
-                        var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
-                            '<div class="resultado-item">' +
+                        var carouselItem = '<div class="carousel-item ' + activeClass + '" style="min-height: 400px;">' + // Ajuste este valor conforme necessário
+                        '<div class="resultado-item">' +
                             '<div class="resultado-imagem">' +
                                 '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
                             '</div>' +
