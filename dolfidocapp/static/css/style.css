@@ -14,7 +14,10 @@ h1 {
 }
 
 /* Estilo para cabeçalhos */
-
+. header-buttons {
+    float: right;
+    
+}
 
 /* Estilo para botões */
 .btn {
