@@ -342,3 +342,8 @@ input.form-control[name="TipoAnalise"] {
     width: auto;
     min-width: 100px;
 }
+
+.carousel-control-prev,
+.carousel-control-next {
+    z-index: 10;
+}
