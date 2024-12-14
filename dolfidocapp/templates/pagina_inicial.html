@@ -45,11 +45,42 @@
     .carousel-item .details h5 {
         font-weight: bold;
     }
+        
+    .carousel-control-prev,
+    .carousel-control-next {
+        bottom: auto;
+        top: calc(50% - 20px); /* Ajuste este valor conforme necessário */
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        opacity: 0.7;
+    }
+    
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
-        background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro para melhor visibilidade */
-        border-radius: 50%;
+        width: 20px;
+        height: 20px;
     }
+    
+    .carousel-control-prev {
+        left: -20px; /* Ajuste este valor conforme necessário */
+    }
+    
+    .carousel-control-next {
+        right: -20px; /* Ajuste este valor conforme necessário */
+    }
+    
+    #carouselExample {
+        position: relative;
+        padding: 0 20px; /* Adiciona espaço para os botões */
+    }
+    
+    .info-container {
+        margin-top: 1px; /* Adiciona 1px de espaço acima da div branca */
+    }
+        
     #resultados {
         background-color: D3DAE0;
         border: none;
