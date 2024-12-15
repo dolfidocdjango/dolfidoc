@@ -51,8 +51,8 @@
         bottom: auto;
         top: calc(50% - 20px); /* Ajuste este valor conforme necessário */
         transform: translateY(-50%);
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 50%;
         opacity: 0.7;
@@ -60,8 +60,8 @@
     
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
-        width: 20px;
-        height: 20px;
+        width: 10px;
+        height: 10px;
     }
     
     .carousel-control-prev {
@@ -87,7 +87,6 @@
         box-shadow: none;
         border-radius: 15px;
         padding: 20px;
-        max-height: 800px; /* Altura máxima dobrada */
         overflow-y: hidden ; /* Rolagem vertical */
         margin-top: 20px;
     }
@@ -108,6 +107,43 @@
         justify-content: space-between;
         align-items: center;
     }
+    /* Estilo base para os botões */
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 50px; /* Ajusta a largura do botão */
+        height: 50px; /* Ajusta a altura do botão */
+        background-color: transparent; /* Fundo transparente */
+        border-radius: 50%; /* Torna o botão circular */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
+    }
+
+    /* Ícones dentro das setas */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 10px;
+        height: 20px;
+        background-size: 90%; /* Garante que o ícone preencha o botão */
+        filter: invert(100%); /* Faz o ícone branco */
+    }
+
+    /* Efeito ao passar o mouse */
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        background-color: #2f3061(0, 0, 0, 0.8); /* Escurece o fundo ao passar o mouse */
+    }
+
+    /* Ajuste de posição */
+    .carousel-control-prev {
+        left: -20px; /* Ajuste a posição horizontal */
+    }
+
+    .carousel-control-next {
+        right: -20px; /* Ajuste a posição horizontal */
+    }
+
    /* Media query para tornar o layout responsivo */
     @media (max-width: 768px) {
         .result-header {
@@ -115,7 +151,7 @@
             align-items: flex-start;
         }
         .highlighted-text {
-            font-size: 120%; /* Ajusta o tamanho da fonte para telas menores */
+            font-size: 90%; /* Ajusta o tamanho da fonte para telas menores */
         }
     }
     </style>
@@ -135,7 +171,7 @@
     <div class="container-fluid d-flex flex-column align-items-center">
         <div class="row w-100">
             <!-- Coluna da esquerda para o formulário e resultados -->
-            <div class="col-lg-6 col-md-12 mb-4">
+            <div class="col-lg-8 col-md-12 mb-4">
             <div id="search-container" class="p-3">
                 <form id="searchForm">
                     <div class="form-group">
@@ -209,7 +245,7 @@
             </div>
 
             <!-- Coluna da direita para a imagem -->
-            <div class="col-lg-6 col-md-12 mb-4 d-flex justify-content-center align-items-center">  
+            <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center align-items-center">  
                 <div class="text-center">
                     <label for="image" class="highlighted-text text-blue">Todas as consultas médicas em um único lugar.</label>
                     <img id="image" src="{% static 'images/doctors.png' %}" alt="Doctors" class="img-fluid" style="max-width: 100%; height: auto;">
@@ -261,7 +297,7 @@
                             '<div class="info-left">' +
                                 '<p><b>Empresa:</b> ' + medicos[0].nome_fantasia + '</p>' +
                                 '<p><b>CNPJ:</b> ' + medicos[0].cnpj + '</p>' +
-                                '<p><b>Endereço:</b> ' + medicos[0].logradouro + ', ' + medicos[0].numero + ' ' + medicos[0].complemento + '</p>' +
+                                '<p><b>Contato:</b> ' + medicos[0].numero + '</p>' +
                             '</div>' +
                             '<div class="info-right">' +
                                 '<p><b>Valor:</b> R$ ' + medicos[0].valor + '</p>' +
@@ -277,7 +313,7 @@
                             '<div class="info-left">' +
                                 '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
                                 '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
-                                '<p><b>Endereço:</b> ' + medico.logradouro + ', ' + medico.numero + ' ' + medico.complemento + '</p>' +
+                                '<p><b>Contato:</b> ' + medico.numero + '</p>' +
                             '</div>' +
                             '<div class="info-right">' +
                                 '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
