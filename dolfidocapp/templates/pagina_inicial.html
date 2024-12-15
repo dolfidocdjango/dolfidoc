@@ -356,7 +356,17 @@
             $('#resultados').hide();
             $('#pagination-buttons').hide(); // Esconde os botões de paginação
             $('#search-container').show(); // Mostra o formulário de busca novamente
+            
+
+            $('input[name="nome_completo"]').val(''); // Limpa o campo de nome
+            $('select[name="especialidade"]').val(''); // Limpa o campo de especialidade
+            $('select[name="cidade"]').val(''); // Limpa o campo de cidade
+            $('input[name="Data"]').val(''); // Limpa o campo de data
+            $('select[name="PeriodoDesejado"]').val(''); // Limpa o campo de período desejado
+            $('select[name="TipoAnalise"]').val(''); // Limpa o campo de tipo de análise
+
             $('#searchForm')[0].reset(); // Reseta o formulário para o estado inicial
+
         });
     });
     </script>
