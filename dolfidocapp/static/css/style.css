@@ -46,7 +46,6 @@ header {
     height: auto;  /* Mantém a proporção */
 }
 
-}
 
 .header-buttons {
     display: flex;
@@ -234,7 +233,6 @@ input.form-control[name="TipoAnalise"] {
     border: none;
     box-shadow: none;
     padding: 20px;
-    max-height: 800px;
     overflow-y: hidden;
     margin-top: 20px;
 }
@@ -259,6 +257,46 @@ input.form-control[name="TipoAnalise"] {
     flex: 1;
 }
 
+
+/* Estilo base para os botões */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px; /* Ajusta a largura do botão */
+    height: 50px; /* Ajusta a altura do botão */
+    background-color: #D3DAE0(0, 0, 0, 0.6); /* Fundo semitransparente */
+    border-radius: 50%; /* Torna o botão circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
+}
+
+/* Ícones dentro das setas */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+    background-size: 100%; /* Garante que o ícone preencha o botão */
+    filter: invert(100%); /* Faz o ícone branco */
+}
+
+/* Efeito ao passar o mouse */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: #2f3061(0, 0, 0, 0.8); /* Escurece o fundo ao passar o mouse */
+}
+
+/* Ajuste de posição */
+.carousel-control-prev {
+    left: -80px; /* Ajuste a posição horizontal */
+}
+
+.carousel-control-next {
+    right: -80px; /* Ajuste a posição horizontal */
+}
+
+
+
 @media (max-width: 768px) {
     .resultado-item {
         flex-direction: column;
@@ -276,6 +314,7 @@ input.form-control[name="TipoAnalise"] {
 }
 
 .info-row {
+    height:auto;
     background-color: white;
     border-radius: 10px;
     margin-bottom: 15px;
@@ -285,11 +324,14 @@ input.form-control[name="TipoAnalise"] {
 }
 
 .info-left {
+    height:auto;
+    background-color: white;
     flex: 0 0 75%;
     padding-right: 15px;
 }
 
 .info-right {
+    height:auto;
     flex: 0 0 25%;
     display: flex;
     align-items: center;
@@ -341,9 +383,4 @@ input.form-control[name="TipoAnalise"] {
 #searchForm button[type="submit"] {
     width: auto;
     min-width: 100px;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    z-index: 10;
 }
