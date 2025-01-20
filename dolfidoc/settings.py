@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-k!ns36x7i1#8n^0xpc14uz==c164v_tmmzcjym6o0g!^@ifb1f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dolfidoc.onrender.com', 'www.dolfidoc.com.br']
+ALLOWED_HOSTS = ['dolfidoc.onrender.com', 'www.dolfidoc.com.br', '127.0.0.1']
 
 
 # Application definition
@@ -129,3 +129,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RECAPTCHA_SECRET_KEY = '6LfTuL0qAAAAAAIL66SO_WnxDjHljWj9QzCjR6qx'
