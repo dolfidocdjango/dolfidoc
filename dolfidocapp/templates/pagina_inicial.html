@@ -165,6 +165,21 @@
  
        gtag('config', 'G-SLDWMW9NKK');
      </script>
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfTuL0qAAAAAGDFy4L7qng6xYhRC-CMH0Pe9cGL"></script>
+    <script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LfTuL0qAAAAAGDFy4L7qng6xYhRC-CMH0Pe9cGL', {action: 'homepage'}).then(function(token) {
+            // Código para adicionar o token ao formulário no HTML
+            var form = document.getElementById('searchForm');
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'recaptcha_token';
+            input.value = token;
+            form.appendChild(input);
+        });
+    });
+    </script>
      
 </head>
 <body>
