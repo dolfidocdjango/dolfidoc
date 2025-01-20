@@ -66,14 +66,14 @@ def medInfo(request):
 def index(request):
     return render(request, 'pagina_inicial.html')
 
-def medInfo_test(request):
-    nome_completo = request.GET.get('nome_completo')
-    especialidade = request.GET.get('especialidade')
-    cidade = request.GET.get('cidade')
+# def medInfo_test(request):
+#     nome_completo = request.GET.get('nome_completo')
+#     especialidade = request.GET.get('especialidade')
+#     cidade = request.GET.get('cidade')
 
-    context = {
-        'nome_completo': nome_completo,
-        'especialidade': especialidade,
-        'cidade': cidade,
-    }
-    return render(request, 'med_info.html', context)
+#     context = {
+#         'nome_completo': nome_completo,
+#         'especialidade': especialidade,
+#         'cidade': cidade,
+#     }
+#     return render(request, 'med_info.html', context)
