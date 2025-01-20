@@ -3,12 +3,13 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dolfidoc</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -17,9 +18,9 @@
     
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <style>
     body {
+        /*background-image: url("{% static '/images/background_image_2.jpg' %}");*/
         background-color: #D3DAE0;
         background-size: cover;
         background-repeat: no-repeat;
@@ -34,96 +35,198 @@
     .carousel-inner img {
         width: 70%;
         height: auto;
-        margin: 0 auto;
+        margin: 0 auto; /* Centraliza horizontalmente */
+        border-radius: 50%; /* Torna a imagem circular */
+    }
+    .carousel-item .details {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .carousel-item .details h5 {
+        font-weight: bold;
+    }
+        
+    .carousel-control-prev,
+    .carousel-control-next {
+        bottom: auto;
+        top: calc(50% - 20px); /* Ajuste este valor conforme necessário */
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
         border-radius: 50%;
-    }    
+        opacity: 0.7;
+    }
+    
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .carousel-control-prev {
+        left: -20px; /* Ajuste este valor conforme necessário */
+    }
+    
+    .carousel-control-next {
+        right: -20px; /* Ajuste este valor conforme necessário */
+    }
+    
+    #carouselExample {
+        position: relative;
+        padding: 0 20px; /* Adiciona espaço para os botões */
+    }
+    
+    .info-container {
+        margin-top: 1px; /* Adiciona 1px de espaço acima da div branca */
+    }
+        
     #resultados {
+        background-color: D3DAE0;
         border: none;
         box-shadow: none;
         border-radius: 15px;
         padding: 20px;
-        overflow-y: hidden;
+        overflow-y: hidden ; /* Rolagem vertical */
         margin-top: 20px;
     }
     .highlighted-text {
-        font-size: 150%;
+        font-size: 150%; /* Aumenta o tamanho da fonte em 50% */
         font-weight: bold;
         font-style: italic;
         text-align: center;
         display: block;
         margin-bottom: 10px;
     }
+    .separator {
+        border-top: 1px solid #333;
+        margin: 10px 0;
+    }
+    .result-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    /* Estilo base para os botões */
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 50px; /* Ajusta a largura do botão */
+        height: 50px; /* Ajusta a altura do botão */
+        background-color: transparent; /* Fundo transparente */
+        border-radius: 50%; /* Torna o botão circular */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
+    }
+
+    /* Ícones dentro das setas */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 10px;
+        height: 20px;
+        background-size: 90%; /* Garante que o ícone preencha o botão */
+        filter: invert(100%); /* Faz o ícone branco */
+    }
+
+    /* Efeito ao passar o mouse */
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        background-color: #2f3061(0, 0, 0, 0.8); /* Escurece o fundo ao passar o mouse */
+    }
+
+    /* Ajuste de posição */
+    .carousel-control-prev {
+        left: -20px; /* Ajuste a posição horizontal */
+    }
+
+    .carousel-control-next {
+        right: -20px; /* Ajuste a posição horizontal */
+    }
+
+   /* Media query para tornar o layout responsivo */
+    @media (max-width: 768px) {
+        .result-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .highlighted-text {
+            font-size: 90%; /* Ajusta o tamanho da fonte para telas menores */
+        }
+    }
     </style>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLDWMW9NKK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-SLDWMW9NKK');
-    </script>
+     <!-- Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLDWMW9NKK"></script>
+     <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+ 
+       gtag('config', 'G-SLDWMW9NKK');
+     </script>
+     
 </head>
 <body>
     <header class="d-flex justify-content-between align-items-center p-3">
-        <div class="logo-container">
-            <img src="{% static 'images/logo.png' %}" alt="Dolfidoc logo" class="logo">
-        </div>
-        <div class="header-buttons">
-            <a href="#" class="btn-invisible mx-2">Ajuda</a>
-            <a href="#" class="btn-invisible mx-2">Contato</a>
-            <a href="#" class="btn-invisible mx-2">Sobre</a>
-        </div>
+    <div class="logo-container">
+        <img src="{% static 'images/logo.png' %}" alt="Dolfidoc logo" class="logo">
+    </div>
+    <div class="header-buttons">
+        <a href="#" class="btn-invisible mx-2">Ajuda</a>
+        <a href="#" class="btn-invisible mx-2">Contato</a>
+        <a href="#" class="btn-invisible mx-2">Sobre</a>
+    </div>
     </header>
 
     <div class="container-fluid d-flex flex-column align-items-center">
         <div class="row w-100">
             <!-- Coluna da esquerda para o formulário e resultados -->
             <div class="col-lg-8 col-md-12 mb-4">
-                <div id="search-container" class="p-3">
-                    <form id="searchForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control text-center rounded-top" placeholder="Nome do Especialista" name="nome_completo" style="width: 70%;">
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="especialidade" style="width: 70%;" required>
-                                <option disabled selected>Especialidade Médica</option>
-                                <option>Cardiologista</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="cidade" style="width: 70%;" required>
-                                <option disabled selected>Selecione a Cidade</option>
-                                <option>Salvador</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control border text-center" id="id_date" name="Data" required placeholder="Data Desejada" style="width: 70%; height: 100%; background-color: white;">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="PeriodoDesejado" style="width: 70%;" required>
-                                <option disabled selected>Periodo Desejado</option>
-                                <option>Manhã</option>
-                                <option>Tarde</option>
-                                <option>Noite</option>
-                                <option>Madrugada</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center rounded-bot" name="TipoAnalise" style="width: 70%;" required>
-                                <option disabled selected>Tipo de Analise</option>
-                                <option>Preço</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" style="color: #2f3061;">Enviar</button>
-                        </div>
-                    </form>
-                </div>
+            <div id="search-container" class="p-3">
+                <form id="searchForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control text-center rounded-top" placeholder="Nome do Especialista" name="nome_completo" style="width: 70%;">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center" name="especialidade" style="width: 70%;" required>
+                            <option disabled selected>Especialidade Médica</option>
+                            <option>Cardiologista</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center" name="cidade" style="width: 70%;" required>
+                            <option disabled selected>Selecione a Cidade</option>
+                            <option>Salvador</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control border text-center" id="id_date" name="Data" required placeholder="Data Desejada" style="width: 70%; height: 100%; background-color: white;">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center" name="PeriodoDesejado" style="width: 70%;" required>
+                            <option disabled selected>Periodo Desejado</option>
+                            <option>Manhã</option>
+                            <option>Tarde</option>
+                            <option>Noite</option>
+                            <option>Madrugada</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-center rounded-bot" name="TipoAnalise" style="width: 70%;" required>
+                            <option disabled selected>Tipo de Analise</option>
+                            <option>Preço</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="color: #2f3061;">Enviar</button>
+                    </div>
+                </form>
+            </div>
 
                 <div id="resultados" style="display: none;">
+                    <!-- Cabeçalho dos resultados com botão Recomeçar -->
                     <div class="result-header">
                         <h2>Resultados da Pesquisa</h2>
                         <button id="restart" class="btn btn-secondary">Recomeçar</button>
@@ -138,13 +241,14 @@
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Anterior</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                        <a class= "carousel-control-next" href="#carouselExample" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Próxima Imagem</span>
                         </a>
                     </div>
                 </div>
 
+                <!-- Botões para navegação de resultados -->
                 <div id="pagination-buttons" class="text-center mt-3" style="display: none;">
                     <button id="prevResults" class="btn btn-primary">10 Resultados Anteriores</button>
                     <button id="nextResults" class="btn btn-primary">Próximos 10 Resultados</button>
@@ -169,7 +273,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
     $(document).ready(function() {
-        var currentPage = 1;
+        var currentPage = 1; // Página atual para a paginação dos resultados
 
         function loadPage(page) {
             $.ajax({
@@ -180,68 +284,70 @@
                     var carouselInner = $('#carousel-inner');
                     carouselInner.empty();
 
+                    // Criar itens do carrossel
                     Object.keys(data.medicos).forEach(function(crm, index) {
                         var medicos = data.medicos[crm];
                         var activeClass = index === 0 ? 'active' : '';
-                        var carouselItem = '<div class="carousel-item d-flex align-items-start ' + activeClass + '">' +
-                            '<div class="resultado-item">' +
-                                '<div class="resultado-imagem">' +
-                                    '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
-                                '</div>' +
-                                '<div class="resultado-dados">' +
-                                    '<h5>' + medicos[0].nome + '</h5>' +
-                                    '<p><b><i>CRM: ' + crm + '</b></i></p>' +
-                                    '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>' +
-                                    '<p><b>Requisito: </b>Idade máxima 12 anos</p>' +
-                                '</div>' +
-                            '</div>';
-
-                        if (medicos.length === 1) {
-                            carouselItem += '<div class="info-container">' +
-                                '<div class="info-row">' +
-                                    '<div class="info-left">' +
-                                        '<p><b>Empresa:</b> ' + medicos[0].nome_fantasia + '</p>' +
-                                        '<p><b>CNPJ:</b> ' + medicos[0].cnpj + '</p>' +
-                                        '<p><b>Contato:</b> ' + medicos[0].numero + '</p>' +
-                                    '</div>' +
-                                    '<div class="info-right">' +
-                                        '<p><b>Valor:</b> R$ ' + medicos[0].valor + '</p>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>';
-                        }
-                        
-                        if (medicos.length > 1) {
-                            carouselItem += '<div class="info-container">';
-                            medicos.forEach(function(medico) {
-                                carouselItem += '<div class="info-row">' +
-                                    '<div class="info-left">' +
-                                        '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
-                                        '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
-                                        '<p><b>Contato:</b> ' + medico.numero + '</p>' +
-                                    '</div>' +
-                                    '<div class="info-right">' +
-                                        '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
-                                    '</div>' +
-                                '</div>';
-                            });
-                            carouselItem += '</div>';
-                        }
-                        
-                        carouselItem += '</div>';
-                        carouselInner.append(carouselItem);
+                        var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
+                        '<div class="resultado-item">' +
+                            '<div class="resultado-imagem">' +
+                                '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
+                            '</div>' +
+                            '<div class="resultado-dados">' +
+                                '<h5>' + medicos[0].nome + '</h5>' +
+                                '<p><b><i>CRM: ' + crm + '</b></i></p>' +
+                                '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>' +
+                                '<p><b>Requisito: </b>Idade máxima 12 anos</p>' +
+                            '</div>' +
+                        '</div>';
+                    
+                    // Exibir informações adicionais se houver apenas 1 registro
+                    if (medicos.length === 1) {
+                    carouselItem += '<div class="info-container">' +
+                        '<div class="info-row">' +
+                            '<div class="info-left">' +
+                                '<p><b>Empresa:</b> ' + medicos[0].nome_fantasia + '</p>' +
+                                '<p><b>CNPJ:</b> ' + medicos[0].cnpj + '</p>' +
+                                '<p><b>Contato:</b> ' + medicos[0].numero + '</p>' +
+                            '</div>' +
+                            '<div class="info-right">' +
+                                '<p><b>Valor:</b> R$ ' + medicos[0].valor + '</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+                }
+                
+                if (medicos.length > 1) {
+                    carouselItem += '<div class="info-container">';
+                    medicos.forEach(function(medico) {
+                        carouselItem += '<div class="info-row">' +
+                            '<div class="info-left">' +
+                                '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
+                                '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
+                                '<p><b>Contato:</b> ' + medico.numero + '</p>' +
+                            '</div>' +
+                            '<div class="info-right">' +
+                                '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
+                            '</div>' +
+                        '</div>';
+                    });
+                    carouselItem += '</div>';
+                }
+                    
+                    carouselItem += '</div>';
+                    carouselInner.append(carouselItem);
                     });
 
                     $('#resultados').show();
-                    $('#pagination-buttons').show();
-                    $('#search-container').hide();
+                    $('#pagination-buttons').show(); // Mostra os botões de paginação
+                    $('#search-container').hide(); // Esconde o formulário de busca
                 }
             });
         }
 
         $('#searchForm').on('submit', function(event) {
             event.preventDefault();
-            currentPage = 1;
+            currentPage = 1; // Reinicia a página ao fazer uma nova busca
             loadPage(currentPage);
         });
 
@@ -259,19 +365,29 @@
 
         $('#restart').on('click', function() {
             $('#resultados').hide();
-            $('#pagination-buttons').hide();
-            $('#search-container').show();
+            $('#pagination-buttons').hide(); // Esconde os botões de paginação
+            $('#search-container').show(); // Mostra o formulário de busca novamente
+            
 
-            $('#searchForm')[0].reset();
+            $('input[name="nome_completo"]').val(''); // Limpa o campo de nome
+            $('select[name="especialidade"]').val(''); // Limpa o campo de especialidade
+            $('select[name="cidade"]').val(''); // Limpa o campo de cidade
+            $('input[name="Data"]').val(''); // Limpa o campo de data
+            $('select[name="PeriodoDesejado"]').val(''); // Limpa o campo de período desejado
+            $('select[name="TipoAnalise"]').val(''); // Limpa o campo de tipo de análise
+
+            $('#searchForm')[0].reset(); // Reseta o formulário para o estado inicial
+
         });
     });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        flatpickr("#id_date", {
-            enableTime: false,
-            dateFormat: "d/m/Y",
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#id_date", {
+                enableTime: false, // Desative o tempo, se necessário
+                dateFormat: "d/m/Y", // Formato de data
+            });
         });
-    });
     </script>
 </body>
 </html>
