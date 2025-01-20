@@ -6,18 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dolfidoc</title>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLDWMW9NKK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-SLDWMW9NKK');
-    </script>
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -26,6 +17,7 @@
     
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <style>
     body {
         background-color: #D3DAE0;
@@ -44,45 +36,8 @@
         height: auto;
         margin: 0 auto;
         border-radius: 50%;
-    }
-    .carousel-item .details {
-        text-align: center;
-        margin-top: 10px;
-    }
-    .carousel-item .details h5 {
-        font-weight: bold;
-    }
-    .carousel-control-prev,
-    .carousel-control-next {
-        bottom: auto;
-        top: calc(50% - 20px);
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
-        opacity: 0.7;
-    }
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        width: 10px;
-        height: 10px;
-    }
-    .carousel-control-prev {
-        left: -20px;
-    }
-    .carousel-control-next {
-        right: -20px;
-    }
-    #carouselExample {
-        position: relative;
-        padding: 0 20px;
-    }
-    .info-container {
-        margin-top: 1px;
-    }
+    }    
     #resultados {
-        background-color: D3DAE0;
         border: none;
         box-shadow: none;
         border-radius: 15px;
@@ -98,28 +53,17 @@
         display: block;
         margin-bottom: 10px;
     }
-    .separator {
-        border-top: 1px solid #333;
-        margin: 10px 0;
-    }
-    .result-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    @media (max-width: 768px) {
-        .result-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .highlighted-text {
-            font-size: 90%;
-        }
-    }
-        .grecaptcha-badge{
-            visibility: hidden;
-        }
     </style>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLDWMW9NKK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SLDWMW9NKK');
+    </script>
 </head>
 <body>
     <header class="d-flex justify-content-between align-items-center p-3">
@@ -135,6 +79,7 @@
 
     <div class="container-fluid d-flex flex-column align-items-center">
         <div class="row w-100">
+            <!-- Coluna da esquerda para o formulário e resultados -->
             <div class="col-lg-8 col-md-12 mb-4">
                 <div id="search-container" class="p-3">
                     <form id="searchForm">
@@ -177,6 +122,7 @@
                         </div>
                     </form>
                 </div>
+
                 <div id="resultados" style="display: none;">
                     <div class="result-header">
                         <h2>Resultados da Pesquisa</h2>
@@ -185,7 +131,9 @@
                     <p id="especialidade"></p>
                     <p id="cidade"></p>
                     <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <div class="carousel-inner" id="carousel-inner"></div>
+                        <div class="carousel-inner" id="carousel-inner">
+                            <!-- Imagens e informações serão inseridas aqui -->
+                        </div>
                         <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Anterior</span>
@@ -196,11 +144,14 @@
                         </a>
                     </div>
                 </div>
+
                 <div id="pagination-buttons" class="text-center mt-3" style="display: none;">
                     <button id="prevResults" class="btn btn-primary">10 Resultados Anteriores</button>
                     <button id="nextResults" class="btn btn-primary">Próximos 10 Resultados</button>
                 </div>
             </div>
+
+            <!-- Coluna da direita para a imagem -->
             <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center align-items-center">  
                 <div class="text-center">
                     <label for="image" class="highlighted-text text-blue">Todas as consultas médicas em um único lugar.</label>
@@ -209,64 +160,118 @@
             </div>
         </div>
     </div>
+
     <footer>
         <p class="text-center"><b>Copyright © 2023. Todos os direitos reservados. Dolfidoc M.E. - CNPJ: 37.630.125/0001-05.</b></p>
     </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var currentPage = 1;
-            function loadPage(page) {
-                $.ajax({
-                    url: "{% url 'medinfo' %}",
-                    method: "GET",
-                    data: $('#searchForm').serialize() + '&page=' + page,
-                    success: function(data) {
-                        var carouselInner = $('#carousel-inner');
-                        carouselInner.empty();
-                        Object.keys(data.medicos).forEach(function(crm, index) {
-                            var medicos = data.medicos[crm];
-                            var activeClass = index === 0 ? 'active' : '';
-                            var carouselItem = '<div class="carousel-item ' + activeClass + '">...</div>';
-                            carouselInner.append(carouselItem);
-                        });
-                        $('#resultados').show();
-                        $('#pagination-buttons').show();
-                        $('#search-container').hide();
-                    }
-                });
-            }
-            $('#searchForm').on('submit', function(event) {
-                event.preventDefault();
-                currentPage = 1;
-                loadPage(currentPage);
-            });
-            $('#nextResults').on('click', function() {
-                currentPage++;
-                loadPage(currentPage);
-            });
-            $('#prevResults').on('click', function() {
-                if (currentPage > 1) {
-                    currentPage--;
-                    loadPage(currentPage);
+    $(document).ready(function() {
+        var currentPage = 1;
+
+        function loadPage(page) {
+            $.ajax({
+                url: "{% url 'medinfo' %}",
+                method: "GET",
+                data: $('#searchForm').serialize() + '&page=' + page,
+                success: function(data) {
+                    var carouselInner = $('#carousel-inner');
+                    carouselInner.empty();
+
+                    Object.keys(data.medicos).forEach(function(crm, index) {
+                        var medicos = data.medicos[crm];
+                        var activeClass = index === 0 ? 'active' : '';
+                        var carouselItem = '<div class="carousel-item d-flex align-items-start ' + activeClass + '">' +
+                            '<div class="resultado-item">' +
+                                '<div class="resultado-imagem">' +
+                                    '<img src="https://drive.google.com/thumbnail?id=' + medicos[0].fid + '" alt="Fonte: CRMS/CFM">' +
+                                '</div>' +
+                                '<div class="resultado-dados">' +
+                                    '<h5>' + medicos[0].nome + '</h5>' +
+                                    '<p><b><i>CRM: ' + crm + '</b></i></p>' +
+                                    '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>' +
+                                    '<p><b>Requisito: </b>Idade máxima 12 anos</p>' +
+                                '</div>' +
+                            '</div>';
+
+                        if (medicos.length === 1) {
+                            carouselItem += '<div class="info-container">' +
+                                '<div class="info-row">' +
+                                    '<div class="info-left">' +
+                                        '<p><b>Empresa:</b> ' + medicos[0].nome_fantasia + '</p>' +
+                                        '<p><b>CNPJ:</b> ' + medicos[0].cnpj + '</p>' +
+                                        '<p><b>Contato:</b> ' + medicos[0].numero + '</p>' +
+                                    '</div>' +
+                                    '<div class="info-right">' +
+                                        '<p><b>Valor:</b> R$ ' + medicos[0].valor + '</p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>';
+                        }
+                        
+                        if (medicos.length > 1) {
+                            carouselItem += '<div class="info-container">';
+                            medicos.forEach(function(medico) {
+                                carouselItem += '<div class="info-row">' +
+                                    '<div class="info-left">' +
+                                        '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
+                                        '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
+                                        '<p><b>Contato:</b> ' + medico.numero + '</p>' +
+                                    '</div>' +
+                                    '<div class="info-right">' +
+                                        '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
+                                    '</div>' +
+                                '</div>';
+                            });
+                            carouselItem += '</div>';
+                        }
+                        
+                        carouselItem += '</div>';
+                        carouselInner.append(carouselItem);
+                    });
+
+                    $('#resultados').show();
+                    $('#pagination-buttons').show();
+                    $('#search-container').hide();
                 }
             });
-            $('#restart').on('click', function() {
-                $('#resultados').hide();
-                $('#pagination-buttons').hide();
-                $('#search-container').show();
-                $('#searchForm')[0].reset();
-            });
+        }
+
+        $('#searchForm').on('submit', function(event) {
+            event.preventDefault();
+            currentPage = 1;
+            loadPage(currentPage);
         });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            flatpickr("#id_date", {
-                enableTime: false,
-                dateFormat: "d/m/Y",
-            });
+
+        $('#nextResults').on('click', function() {
+            currentPage++;
+            loadPage(currentPage);
         });
+
+        $('#prevResults').on('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                loadPage(currentPage);
+            }
+        });
+
+        $('#restart').on('click', function() {
+            $('#resultados').hide();
+            $('#pagination-buttons').hide();
+            $('#search-container').show();
+
+            $('#searchForm')[0].reset();
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        flatpickr("#id_date", {
+            enableTime: false,
+            dateFormat: "d/m/Y",
+        });
+    });
     </script>
 </body>
 </html>
