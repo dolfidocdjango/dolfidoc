@@ -66,14 +66,27 @@ def medInfo(request):
 def index(request):
     return render(request, 'pagina_inicial.html')
 
-# def medInfo_test(request):
-#     nome_completo = request.GET.get('nome_completo')
-#     especialidade = request.GET.get('especialidade')
-#     cidade = request.GET.get('cidade')
+import requests
+from django.conf import settings
+from django.http import JsonResponse
 
-#     context = {
-#         'nome_completo': nome_completo,
-#         'especialidade': especialidade,
-#         'cidade': cidade,
-#     }
-#     return render(request, 'med_info.html', context)
+def validate_recaptcha(request):
+    recaptcha_token = request.POST.get('recaptcha_token')
+
+    # ReCAPTCHA secret key deve estar em configurations
+    secret_key = settings.RECAPTCHA_SECRET_KEY
+
+    # Requisição do reCAPTCHA v3 ao Google
+    data = {
+        'secret': secret_key,
+        'response': recaptcha_token
+    }
+
+    result = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data).json()
+
+    # Verificar se a pontuação é suficiente e ação é reconhecida
+    if result.get('success') and result.get('score', 0) > 0.5 and result.get('action') == 'homepage':
+        # Validar corretamente a ação esperada e a pontuação
+        return JsonResponse({'status': 'ok'}, status=200)
+
+    return JsonResponse({'status': 'failed'}, status=400)
