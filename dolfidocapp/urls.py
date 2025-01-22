@@ -7,4 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # URL para acessar a área administrativa do Django
     path('', views.index, name='home'),  # URL raiz que será aberta ao acessar o site
     path('medinfo', views.medInfo, name='medinfo'),
+    path('medico/imagem/<int:medico_id>/', views.obter_imagem_foto, name='obter_imagem_foto'),
 ]
