@@ -1,15 +1,13 @@
 # views.py
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import Cardiologista
 from django.db.models import Q, F, Value
 from django.db.models.functions import Concat
 from django.core.paginator import Paginator
 from collections import defaultdict
-from django.http import HttpResponse
-import requests
 from django.conf import settings
-from django.http import JsonResponse
+import requests
 
 def obter_imagem_foto(request, medico_id):
     try:
