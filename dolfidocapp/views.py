@@ -6,6 +6,14 @@ from django.db.models import Q, F, Value
 from django.db.models.functions import Concat
 from django.core.paginator import Paginator
 from collections import defaultdict
+from django.http import HttpResponse
+
+def obter_imagem_foto(request, medico_id):
+    try:
+        medico = Cardiologista.objects.get(id=medico_id)
+        return HttpResponse(medico.foto, content_type="image/png")  # ou ajuste para o tipo de imagem adequado
+    except Cardiologista.DoesNotExist:
+        return HttpResponse(status=404)
 
 def medInfo(request):
     # Obtendo os parâmetros do GET
@@ -16,19 +24,19 @@ def medInfo(request):
 
     # Consulta de médicos com filtros dinâmicos e anotações
     medicos = Cardiologista.objects.annotate(
-        cidade_uf=Concat(F('cidade'), Value(' - '), F('uf'))  # Concatenar 'cidade' e 'uf'
+        cidade_uf=Concat(F('cidade'), Value(' - '), F('uf'))
     ).filter(
-        Q(nome__icontains=nome_completo) if nome_completo else Q(),  # Filtro no nome
-        Q(especialidade__iexact=especialidade) if especialidade else Q(),  # Filtro na especialidade
-        Q(cidade__iexact=cidade) if cidade else Q(),  # Filtro na cidade
-        valor__gte=1  # Garantir apenas médicos com valores >= 1
-    ).order_by('valor')  # Ordenar do menor para maior valor
-    
+        Q(nome__icontains=nome_completo) if nome_completo else Q(),
+        Q(especialidade__iexact=especialidade) if especialidade else Q(),
+        Q(cidade__iexact=cidade) if cidade else Q(),
+        valor__gte=1
+    ).order_by('valor')
+
     # Paginação dos resultados (10 por página)
     paginator = Paginator(medicos, 10)
     
     try:
-        page_obj = paginator.page(page_number)  # Obter objetos da página corrente
+        page_obj = paginator.page(page_number)
     except:
         return JsonResponse({'error': 'Página inválida'}, status=400)
 
@@ -36,29 +44,28 @@ def medInfo(request):
     grouped_medicos = defaultdict(list)
     for medico in page_obj:
         grouped_medicos[medico.crm].append({
+            'medico_id': medico.id,  # Importante: só coloca referências
             'nome': medico.nome,
             'crm': medico.crm,
             'cidade': medico.cidade,
             'uf': medico.uf,
             'especialidade': medico.especialidade,
-            'fid': medico.fid,
             'nome_fantasia': medico.nome_fantasia,
             'cnpj': medico.cnpj,
-            'valor': str(medico.valor),  # Garantir que valor seja transformado em string
+            'valor': str(medico.valor),
             'numero': medico.numero,
             'logradouro': medico.logradouro,
-            'complemento': medico.complemento or '',  # Garantir string vazia se o complemento não existir
+            'complemento': medico.complemento or '',
         })
 
-    # Montar dados para resposta JSON
     response_data = {
         'especialidade': especialidade,
         'cidade': cidade,
         'medicos': grouped_medicos,
-        'has_next': page_obj.has_next(),  # Validar próxima página
-        'has_previous': page_obj.has_previous(),  # Validar página anterior
-        'num_pages': paginator.num_pages,  # Total de páginas
-        'current_page': page_obj.number,  # Página corrente
+        'has_next': page_obj.has_next(),
+        'has_previous': page_obj.has_previous(),
+        'num_pages': paginator.num_pages,
+        'current_page': page_obj.number,
     }
 
     return JsonResponse(response_data, safe=False)  # Retornar dados JSON
