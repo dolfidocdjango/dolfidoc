@@ -7,6 +7,9 @@ from django.db.models.functions import Concat
 from django.core.paginator import Paginator
 from collections import defaultdict
 from django.http import HttpResponse
+import requests
+from django.conf import settings
+from django.http import JsonResponse
 
 def obter_imagem_foto(request, medico_id):
     try:
