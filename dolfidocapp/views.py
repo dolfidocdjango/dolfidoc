@@ -1,13 +1,14 @@
 # views.py
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from .models import Cardiologista
 from django.db.models import Q, F, Value
 from django.db.models.functions import Concat
 from django.core.paginator import Paginator
 from collections import defaultdict
-from django.conf import settings
+from django.http import HttpResponse
 import requests
+from django.conf import settings
 
 def obter_imagem_foto(request, medico_id):
     try:
@@ -33,6 +34,9 @@ def medInfo(request):
         valor__gte=1
     ).order_by('valor')
 
+    # Número total de médicos encontrados (total de resultados)
+    total_results = medicos.count()
+
     # Paginação dos resultados (10 por página)
     paginator = Paginator(medicos, 10)
     
@@ -45,7 +49,7 @@ def medInfo(request):
     grouped_medicos = defaultdict(list)
     for medico in page_obj:
         grouped_medicos[medico.crm].append({
-            'medico_id': medico.id,  # Importante: só coloca referências
+            'medico_id': medico.id,
             'nome': medico.nome,
             'crm': medico.crm,
             'cidade': medico.cidade,
@@ -67,16 +71,13 @@ def medInfo(request):
         'has_previous': page_obj.has_previous(),
         'num_pages': paginator.num_pages,
         'current_page': page_obj.number,
+        'total_results': total_results,  # Incluindo o total de resultados
     }
 
     return JsonResponse(response_data, safe=False)  # Retornar dados JSON
 
 def index(request):
     return render(request, 'pagina_inicial.html')
-
-import requests
-from django.conf import settings
-from django.http import JsonResponse
 
 def validate_recaptcha(request):
     recaptcha_token = request.POST.get('recaptcha_token')
