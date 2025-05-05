@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-k!ns36x7i1#8n^0xpc14uz==c164v_tmmzcjym6o0g!^@ifb1f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dolfidoc.onrender.com', 'www.dolfidoc.com.br', '127.0.0.1', 'dolfidoc.com.br']
+ALLOWED_HOSTS = ['dolfidoc.com.br', 'www.dolfidoc.com.br', '127.0.0.1', 'localhost']
 
 
 # Application definition
