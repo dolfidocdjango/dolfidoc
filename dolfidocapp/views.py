@@ -22,7 +22,6 @@ def medInfo(request):
     nome_completo = request.GET.get('nome_completo', '').strip()
     especialidade = request.GET.get('especialidade', '').strip()
     cidade = request.GET.get('cidade', '').strip()
-    page_number = request.GET.get('page', 1)  # Padrão para a página inicial
 
     # Consulta de médicos com filtros dinâmicos e anotações
     medicos = Cardiologista.objects.annotate(
@@ -37,17 +36,9 @@ def medInfo(request):
     # Número total de médicos encontrados (total de resultados)
     total_results = medicos.count()
 
-    # Paginação dos resultados (10 por página)
-    paginator = Paginator(medicos, 10)
-    
-    try:
-        page_obj = paginator.page(page_number)
-    except:
-        return JsonResponse({'error': 'Página inválida'}, status=400)
-
     # Agrupar médicos por CRM
     grouped_medicos = defaultdict(list)
-    for medico in page_obj:
+    for medico in medicos:
         grouped_medicos[medico.crm].append({
             'medico_id': medico.id,
             'nome': medico.nome,
@@ -67,14 +58,10 @@ def medInfo(request):
         'especialidade': especialidade,
         'cidade': cidade,
         'medicos': grouped_medicos,
-        'has_next': page_obj.has_next(),
-        'has_previous': page_obj.has_previous(),
-        'num_pages': paginator.num_pages,
-        'current_page': page_obj.number,
-        'total_results': total_results,  # Incluindo o total de resultados
+        'total_results': total_results,
     }
 
-    return JsonResponse(response_data, safe=False)  # Retornar dados JSON
+    return JsonResponse(response_data, safe=False)
 
 def index(request):
     return render(request, 'pagina_inicial.html')
