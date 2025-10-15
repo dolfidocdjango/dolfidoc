@@ -4,157 +4,25 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dolfidoc</title>
+    <meta name="description" content="Dolfidoc - Todas as consultas médicas em um único lugar. Encontre especialistas médicos de forma rápida e fácil.">
+    <title>Dolfidoc - Busca de Especialistas Médicos</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Flatpickr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    <!-- Link para o CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #D3DAE0;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .carousel-inner img {
-            width: 70%;
-            height: auto;
-            margin: 0 auto;
-            border-radius: 50%;
-        }
-        
-        .carousel-item .details {
-            text-align: center;
-            margin-top: 10px;
-        }
-        
-        .carousel-item .details h5 {
-            font-weight: bold;
-        }
-        
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background-color 0.3s ease;
-            opacity: 0.7;
-        }
-        
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            width: 15px;
-            height: 15px;
-            background-size: 80%;
-            filter: invert(100%);
-        }
-        
-        .carousel-control-prev:hover,
-        .carousel-control-next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-        
-        .carousel-control-prev {
-            left: -10px;
-        }
-        
-        .carousel-control-next {
-            right: -10px;
-        }
-        
-        #carouselExample {
-            position: relative;
-            padding: 0 20px;
-        }
-        
-        .info-container {
-            margin-top: 1px;
-        }
-        
-       #resultados {
-            width: 100%; /* Ou o tamanho desejado */
-            background-color: #D3DAE0;
-            border: none;
-            box-shadow: none;
-            border-radius: 15px;
-            padding: 20px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-        
-        .highlighted-text {
-            font-size: 150%;
-            font-weight: bold;
-            font-style: italic;
-            text-align: center;
-            display: block;
-        }
-        
-        .separator {
-            border-top: 1px solid #333;
-            margin: 10px 0;
-        }
-        
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        @media (max-width: 768px) {
-            .result-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .highlighted-text {
-                font-size: 90%;
-            }
-        }
-        
-        #search-container form .form-group {
-            width: 60%;
-            margin: auto;
-        }
-
-        .scrollable {
-            max-height: 250px; /* Defina a altura máxima desejada */
-            overflow-y: auto; /* Permite a rolagem quando necessário */
-            scrollbar-width: thin;
-            scrollbar-color: #666 #e0e0e0;
-        }
-
-        .scrollable::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .scrollable::-webkit-scrollbar-track {
-            background: #e0e0e0;
-        }
-
-        .scrollable::-webkit-scrollbar-thumb {
-            background-color: #666;
-            border-radius: 20px;
-            border: 3px solid #e0e0e0;
-        }
-    </style>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/results.css' %}">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLDWMW9NKK"></script>
@@ -165,119 +33,83 @@
         gtag('config', 'G-SLDWMW9NKK');
     </script>
 
+    <!-- reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render=6LfTuL0qAAAAAGDFy4L7qng6xYhRC-CMH0Pe9cGL"></script>
     <script>
         grecaptcha.ready(function() {
             grecaptcha.execute('6LfTuL0qAAAAAGDFy4L7qng6xYhRC-CMH0Pe9cGL', {action: 'homepage'}).then(function(token) {
                 var form = document.getElementById('searchForm');
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'recaptcha_token';
-                input.value = token;
-                form.appendChild(input);
+                if (form) {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'recaptcha_token';
+                    input.value = token;
+                    form.appendChild(input);
+                }
             });
         });
     </script>
-     
 </head>
 <body>
-    <header class="d-flex justify-content-between align-items-center p-3">
-        <div class="logo-container">
-            <a href="{% url 'home' %}">
-                <img src="{% static 'images/logo.png' %}" alt="Dolfidoc logo" class="logo">
-            </a>
-        </div>
-        <div class="header-buttons">
-            <a href="#" class="btn-invisible mx-2">Ajuda</a>
-            <a href="#" class="btn-invisible mx-2">Contato</a>
-            <a href="#" class="btn-invisible mx-2">Sobre</a>
-        </div>
-    </header>
+    {% include 'includes/header.html' %}
 
-    <div class="container-fluid d-flex flex-column align-items-center">
-        <div class="row w-100">
-            <div class="col-lg-8 col-md-12 mb-4">
-                <div id="search-container" class="p-3">
-                    <form id="searchForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control text-center rounded-top" placeholder="Nome do Especialista" name="nome_completo" style="width: 70%;">
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="especialidade" style="width: 70%;" required>
-                                <option disabled selected>Especialidade Médica</option>
-                                <option>Cardiologista</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="cidade" style="width: 70%;" required>
-                                <option disabled selected>Selecione a Cidade</option>
-                                <option>Salvador</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control border text-center" id="id_date" name="Data" required placeholder="Data Desejada" style="width: 70%; height: 100%; background-color: white;">
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center" name="PeriodoDesejado" style="width: 70%;" required>
-                                <option disabled selected>Periodo Desejado</option>
-                                <option>Manhã</option>
-                                <option>Tarde</option>
-                                <option>Noite</option>
-                                <option>Madrugada</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control text-center rounded-bot" name="TipoAnalise" style="width: 70%;" required>
-                                <option disabled selected>Tipo de Analise</option>
-                                <option>Preço</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" style="color: #2f3061; margin-top: 7px;">Pesquisar</button>
-                        </div>
-                    </form>
-                </div>
+    <main class="main-content" role="main">
+        <div class="content-wrapper">
+            <div class="left-section">
+                {% include 'includes/search_form.html' %}
 
-                <div id="resultados" style="display: none;">
+                <div id="resultados" style="display: none;" role="region" aria-live="polite" aria-label="Resultados da pesquisa">
                     <div class="result-header">
                         <h2 id="result-header-title">Resultados da Pesquisa</h2>
-                        <button id="restart" class="btn btn-secondary">Recomeçar</button>
+                        <button id="restart" class="btn btn-secondary" aria-label="Recomeçar busca">Recomeçar</button>
                     </div>
                     <p id="especialidade"></p>
                     <p id="cidade"></p>
-                    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="false">
+                    
+                    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="false" role="region" aria-label="Carrossel de resultados">
                         <div class="carousel-inner" id="carousel-inner">
-                            <!-- Imagens e informações serão inseridas aqui -->
+                            <!-- Resultados serão inseridos aqui via JavaScript -->
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev" aria-label="Resultado anterior">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Anterior</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next" aria-label="Próximo resultado">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Próxima Imagem</span>
+                            <span class="sr-only">Próximo</span>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-12 mb-4 d-flex justify-content-center align-items-center">  
-                <div class="text-center">
-                    <label for="image" class="highlighted-text" style="margin-bottom: 40%; position: relative; color: white;">Todas as consultas médicas em um único lugar.</label>
-                    <img id="image" src="{% static 'images/doctors.png' %}" alt="Doctors" class="img-fluid" style="max-width: 100%; height: auto; position: fixed; bottom: 5%; right: 1%; max-height: 50%;">
+            <div class="right-section">
+                <div class="image-block">
+                    <p class="highlighted-text">Todas as consultas médicas em um único lugar.</p>
+                    <img id="image" src="{% static 'images/doctors.png' %}" alt="Ilustração de médicos - Dolfidoc" class="img-fluid">
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <footer>
-        <p class="text-center"><b>Copyright © 2023. Todos os direitos reservados. Dolfidoc Inovas Simples (I.S.) - CNPJ: 60.192.706/0001-24.</b></p>
-    </footer>
+    {% include 'includes/footer.html' %}
 
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+    <!-- Custom JavaScript -->
     <script>
     $(document).ready(function() {
+        // Initialize Flatpickr
+        flatpickr("#id_date", {
+            enableTime: false,
+            dateFormat: "d/m/Y",
+        });
+
+        // Load search results
         function loadPage() {
             $.ajax({
                 url: "{% url 'medinfo' %}",
@@ -294,7 +126,7 @@
                         var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
                         '<div class="resultado-item">' +
                             '<div class="resultado-imagem">' +
-                                '<img src="/medico/imagem/' + medicos[0].medico_id + '/" alt="Fonte: CRMS/CFM">' +
+                                '<img src="/medico/imagem/' + medicos[0].medico_id + '/" alt="Foto do Dr(a). ' + medicos[0].nome + ' - Fonte: CRMS/CFM">' +
                             '</div>' +
                             '<div class="resultado-dados">' +
                                 '<h5>' + medicos[0].nome + '</h5>' +
@@ -314,7 +146,7 @@
                                         '<p><b>Contato:</b> ' + medico.numero + '</p>' +
                                     '</div>' +
                                     '<div class="info-right">' +
-                                        '<p><b>Valor:</b> R$ ' + medico.valor + '</p>' +
+                                        '<p> R$ ' + medico.valor + '</p>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>';
@@ -328,39 +160,60 @@
                     $('#resultados').show();
                     $('#search-container').hide();
 
-                    // Inicializa o índice e total do carrossel
+                    // Update carousel counter
                     var currentCarouselIndex = 1;
                     var totalCarouselItems = $('#carousel-inner .carousel-item').length;
                     $('#result-header-title').text('Resultados da Pesquisa ' + currentCarouselIndex + ' de ' + totalCarouselItems);
+                },
+                error: function() {
+                    alert('Erro ao carregar os resultados. Por favor, tente novamente.');
                 }
             });
         }
 
+        // Form submission
         $('#searchForm').on('submit', function(event) {
             event.preventDefault();
-            loadPage();
+            
+            // Basic validation
+            var isValid = true;
+            $(this).find('select[required], input[required]').each(function() {
+                if (!$(this).val() || $(this).val() === $(this).find('option:first').val()) {
+                    $(this).addClass('form-control--error');
+                    isValid = false;
+                } else {
+                    $(this).removeClass('form-control--error');
+                }
+            });
+
+            if (isValid) {
+                loadPage();
+            }
         });
     
+        // Restart button
         $('#restart').on('click', function() {
             $('#resultados').hide();
             $('#search-container').show();
             $('#searchForm')[0].reset();
+            $('#searchForm').find('.form-control--error').removeClass('form-control--error');
         });
 
+        // Carousel slide event
         $('#carouselExample').on('slid.bs.carousel', function(e) {
             var currentCarouselIndex = $(e.relatedTarget).index() + 1;
             var totalCarouselItems = $('#carousel-inner .carousel-item').length;
             $('#result-header-title').text('Resultados da Pesquisa ' + currentCarouselIndex + ' de ' + totalCarouselItems);
         });
-    });
-</script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            flatpickr("#id_date", {
-                enableTime: false,
-                dateFormat: "d/m/Y",
-            });
+
+        // Remove error styling on input change
+        $('.form-control').on('change input', function() {
+            if ($(this).val()) {
+                $(this).removeClass('form-control--error');
+            }
         });
+    });
     </script>
 </body>
 </html>
+
