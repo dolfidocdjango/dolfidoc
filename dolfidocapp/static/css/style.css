@@ -39,25 +39,34 @@ h1 {
     max-width: 100%;
     flex: 1;
     align-items: stretch;
+    justify-content: center;
 }
 
 /* Left Section - Form */
 .left-section {
-    flex: 0 0 35%;
+    flex: 0 0 42%; /* 🔹 aumenta ligeiramente a área esquerda */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem 2rem 2rem 8rem;
     align-items: flex-start;
+    padding: 2rem 0 2rem 3rem; /* 🔹 reduzido bastante da esquerda */
+    transform: translateX(6rem); /* 🔹 move visualmente para perto da direita */
+}
+
+/* Move o conteúdo interno (formulário) ainda mais */
+.left-section #searchForm {
+    width: 100%;
+    max-width: 520px;
+    transform: translateX(3rem);
 }
 
 /* Right Section - Image Block */
 .right-section {
-    flex: 0 0 65%;
+    flex: 0 0 58%; /* 🔹 ligeiramente menor */
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    padding-right: 3rem;
+    padding-right: 10rem;
     padding-bottom: 0;
     position: relative;
 }
@@ -123,11 +132,16 @@ h1 {
     }
     
     .left-section {
-        padding-left: 10rem;
+        padding-left: 4rem;
+        transform: translateX(8rem);
+    }
+
+    .left-section #searchForm {
+        transform: translateX(5rem);
     }
     
     .right-section {
-        padding-right: 5rem;
+        padding-right: 6rem;
     }
 }
 
@@ -137,11 +151,16 @@ h1 {
     }
     
     .left-section {
-        padding-left: 12rem;
+        padding-left: 5rem;
+        transform: translateX(10rem);
+    }
+
+    .left-section #searchForm {
+        transform: translateX(6rem);
     }
     
     .right-section {
-        padding-right: 7rem;
+        padding-right: 8rem;
     }
 }
 
@@ -152,13 +171,18 @@ h1 {
     }
     
     .left-section {
-        flex: 0 0 40%;
-        padding: 2rem 1.5rem 2rem 5rem;
+        flex: 0 0 48%;
+        padding-left: 2.5rem;
+        transform: translateX(4rem);
+    }
+
+    .left-section #searchForm {
+        transform: translateX(2rem);
     }
     
     .right-section {
-        flex: 0 0 60%;
-        padding-right: 2rem;
+        flex: 0 0 52%;
+        padding-right: 3rem;
     }
     
     .highlighted-text {
@@ -190,7 +214,14 @@ h1 {
         flex: 1;
         width: 100%;
         padding: 2rem;
+        transform: none;
         justify-content: flex-start;
+        align-items: center;
+    }
+
+    .left-section #searchForm {
+        transform: none;
+        max-width: 100%;
     }
     
     .right-section {
@@ -229,6 +260,13 @@ h1 {
     
     .left-section {
         padding: 1.5rem;
+        transform: none;
+        align-items: center;
+    }
+
+    .left-section #searchForm {
+        transform: none;
+        width: 100%;
     }
     
     .right-section {
@@ -263,6 +301,13 @@ h1 {
     
     .left-section {
         padding: 1rem;
+        transform: none;
+        align-items: center;
+    }
+
+    .left-section #searchForm {
+        transform: none;
+        width: 100%;
     }
     
     .right-section {
@@ -310,5 +355,11 @@ h1 {
     .left-section,
     .right-section {
         padding: 0.75rem;
+        transform: none;
+    }
+
+    .left-section #searchForm {
+        transform: none;
+        width: 100%;
     }
 }
