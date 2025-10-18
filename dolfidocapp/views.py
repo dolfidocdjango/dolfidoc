@@ -1,57 +1,85 @@
 # views.py
-from django.shortcuts import render
-from django.http import JsonResponse
-from .models import Cardiologista
+from collections import defaultdict
+from django.conf import settings
 from django.db.models import Q, F, Value
 from django.db.models.functions import Concat
+from django.http import JsonResponse, FileResponse, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from collections import defaultdict
-from django.http import HttpResponse
-import requests
-from django.conf import settings
+
+from .models import Cardiologista
+
 
 def obter_imagem_foto(request, medico_id):
-    try:
-        medico = Cardiologista.objects.get(id=medico_id)
-        return HttpResponse(medico.foto, content_type="image/png")  # ou ajuste para o tipo de imagem adequado
-    except Cardiologista.DoesNotExist:
-        return HttpResponse(status=404)
+    """
+    Retorna a imagem armazenada no banco (campo bytea / BinaryField).
+    """
+    medico = get_object_or_404(Cardiologista, id=medico_id)
+
+    if medico.foto:
+        # Envia o conteúdo binário diretamente ao navegador
+        return HttpResponse(medico.foto, content_type='image/png')
+
+    return HttpResponse(status=404)
 
 def medInfo(request):
-    # Obtendo os parâmetros do GET
+    """
+    View de listagem e filtragem de médicos, com agrupamento por CRM e paginação.
+    Performance otimizada: uso de .values(), cache de lista e paginação.
+    """
+
+    # Parâmetros GET (filtragem dinâmica)
     nome_completo = request.GET.get('nome_completo', '').strip()
     especialidade = request.GET.get('especialidade', '').strip()
     cidade = request.GET.get('cidade', '').strip()
+    page_number = request.GET.get('page', 1)
 
-    # Consulta de médicos com filtros dinâmicos e anotações
-    medicos = Cardiologista.objects.annotate(
-        cidade_uf=Concat(F('cidade'), Value(' - '), F('uf'))
-    ).filter(
-        Q(nome__icontains=nome_completo) if nome_completo else Q(),
-        Q(especialidade__iexact=especialidade) if especialidade else Q(),
-        Q(cidade__iexact=cidade) if cidade else Q(),
-        valor__gte=1
-    ).order_by('valor')
+    # Filtros dinâmicos com Q()
+    filtros = Q(valor__gte=1)
+    if nome_completo:
+        filtros &= Q(nome__icontains=nome_completo)
+    if especialidade:
+        filtros &= Q(especialidade__iexact=especialidade)
+    if cidade:
+        filtros &= Q(cidade__iexact=cidade)
 
-    # Número total de médicos encontrados (total de resultados)
-    total_results = medicos.count()
+    # Consulta otimizada — seleciona apenas os campos necessários
+    medicos_qs = (
+        Cardiologista.objects
+        .filter(filtros)
+        .annotate(cidade_uf=Concat(F('cidade'), Value(' - '), F('uf')))
+        .values(
+            'id', 'nome', 'crm', 'cidade', 'uf', 'especialidade',
+            'nome_fantasia', 'cnpj', 'valor', 'numero', 'logradouro',
+            'complemento', 'cidade_uf'
+        )
+        .order_by('valor')
+    )
 
-    # Agrupar médicos por CRM
+    # Paginação — evita carregar todos de uma vez
+    paginator = Paginator(medicos_qs, 50)  # 50 registros por página
+    page_obj = paginator.get_page(page_number)
+
+    # Converte para lista (evita nova query no count)
+    medicos_list = list(page_obj.object_list)
+    total_results = paginator.count
+
+    # Agrupar médicos por CRM (feito em memória de forma leve)
     grouped_medicos = defaultdict(list)
-    for medico in medicos:
-        grouped_medicos[medico.crm].append({
-            'medico_id': medico.id,
-            'nome': medico.nome,
-            'crm': medico.crm,
-            'cidade': medico.cidade,
-            'uf': medico.uf,
-            'especialidade': medico.especialidade,
-            'nome_fantasia': medico.nome_fantasia,
-            'cnpj': medico.cnpj,
-            'valor': str(medico.valor),
-            'numero': medico.numero,
-            'logradouro': medico.logradouro,
-            'complemento': medico.complemento or '',
+    for medico in medicos_list:
+        grouped_medicos[medico['crm']].append({
+            'medico_id': medico['id'],
+            'nome': medico['nome'],
+            'crm': medico['crm'],
+            'cidade': medico['cidade'],
+            'uf': medico['uf'],
+            'especialidade': medico['especialidade'],
+            'nome_fantasia': medico['nome_fantasia'],
+            'cnpj': medico['cnpj'],
+            'valor': str(medico['valor']),
+            'numero': medico['numero'],
+            'logradouro': medico['logradouro'],
+            'complemento': medico['complemento'] or '',
         })
 
     response_data = {
@@ -59,30 +87,17 @@ def medInfo(request):
         'cidade': cidade,
         'medicos': grouped_medicos,
         'total_results': total_results,
+        'page': page_obj.number,
+        'total_pages': paginator.num_pages,
+        'has_next': page_obj.has_next(),
+        'has_previous': page_obj.has_previous(),
     }
 
     return JsonResponse(response_data, safe=False)
 
+
 def index(request):
+    """
+    Página inicial.
+    """
     return render(request, 'pagina_inicial.html')
-
-def validate_recaptcha(request):
-    recaptcha_token = request.POST.get('recaptcha_token')
-
-    # ReCAPTCHA secret key deve estar em configurations
-    secret_key = settings.RECAPTCHA_SECRET_KEY
-
-    # Requisição do reCAPTCHA v3 ao Google
-    data = {
-        'secret': secret_key,
-        'response': recaptcha_token
-    }
-
-    result = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data).json()
-
-    # Verificar se a pontuação é suficiente e ação é reconhecida
-    if result.get('success') and result.get('score', 0) > 0.5 and result.get('action') == 'homepage':
-        # Validar corretamente a ação esperada e a pontuação
-        return JsonResponse({'status': 'ok'}, status=200)
-
-    return JsonResponse({'status': 'failed'}, status=400)

@@ -11,15 +11,6 @@
     overflow: hidden;
     margin-top: 1rem;
 }
-
-.highlighted-text {
-    font-size: 150%;
-    font-weight: bold;
-    font-style: italic;
-    text-align: center;
-    display: block;
-}
-
 .separator {
     border-top: 1px solid #333;
     margin: 0.5rem 0;
@@ -202,12 +193,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
-    }
-
-    .highlighted-text {
-        font-size: 100%;
-    }
-    
+    }    
     .resultado-item {
         gap: 0.75rem;
     }
@@ -286,10 +272,6 @@
     #resultados {
         padding: 0.5rem;
         border-radius: 0.5rem;
-    }
-
-    .highlighted-text {
-        font-size: 90%;
     }
     
     .resultado-imagem img {
