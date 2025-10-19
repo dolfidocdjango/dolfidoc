@@ -1,0 +1,85 @@
+/* ========== WIDE / QHD (2560px+) ========== */
+
+/* 
+   Para telas 2K (2560x1440) e superiores, mantemos o conteúdo
+   centralizado com largura máxima de 1920px e margens laterais simétricas
+*/
+
+body {
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Todos os elementos principais centralizados */
+.header,
+.main-content,
+.footer {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Header fixo e centralizado */
+.header {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1920px;
+  width: 1920px;
+}
+
+/* Main content com largura fixa */
+.main-content {
+  width: 1920px;
+  max-width: 1920px;
+}
+
+.content-wrapper {
+  max-width: 1920px;
+  width: 1920px;
+  margin: 0 auto;
+}
+
+/* Mantém os ajustes de posicionamento do desktop */
+.left-section {
+  padding-left: 4rem;
+}
+
+.left-section #searchForm {
+  transform: translateX(4rem);
+}
+
+.right-section {
+  padding-right: 4rem;
+}
+
+/* Footer fixo e centralizado */
+.footer {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1920px;
+  width: 1920px;
+}
+
+/* Páginas de conteúdo */
+.contact-wrapper,
+.about-page {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Resultados de busca */
+#resultados {
+  max-width: 1330px;
+  margin-left: auto;
+  margin-right: auto;
+}
+

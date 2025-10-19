@@ -101,3 +101,17 @@ def index(request):
     Página inicial.
     """
     return render(request, 'pagina_inicial.html')
+
+
+def contato(request):
+    """
+    Página de contato.
+    """
+    return render(request, 'contato.html')
+
+
+def sobre(request):
+    """
+    Página sobre.
+    """
+    return render(request, 'sobre.html')

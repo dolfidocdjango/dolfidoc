@@ -6,9 +6,9 @@
         </a>
     </div>
     <nav class="header__nav" role="navigation" aria-label="Menu principal">
-        <a href="#" class="header__nav-link" aria-label="Página de ajuda">Ajuda</a>
-        <a href="#" class="header__nav-link" aria-label="Página de contato">Contato</a>
-        <a href="#" class="header__nav-link" aria-label="Página sobre nós">Sobre</a>
+        <a href="{% url 'home' %}" class="header__nav-link" aria-label="Página inicial">Início</a>
+        <a href="{% url 'contato' %}" class="header__nav-link" aria-label="Página de contato">Contato</a>
+        <a href="{% url 'sobre' %}" class="header__nav-link" aria-label="Página sobre nós">Sobre</a>
     </nav>
 </header>
 

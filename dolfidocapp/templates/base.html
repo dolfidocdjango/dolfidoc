@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Dolfidoc - Todas as consultas médicas em um único lugar{% endblock %}">
+    <title>{% block title %}Dolfidoc - Busca de Especialistas Médicos{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Base (sempre carregado) -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    <!-- CSS Desktop (padrão) -->
+    <link rel="stylesheet" href="{% static 'css/desktop.css' %}">
+    
+    <!-- CSS Mobile (até 767px) -->
+    <link rel="stylesheet" href="{% static 'css/mobile.css' %}" media="(max-width: 767px)">
+    
+    <!-- CSS Tablet (768px - 1023px) -->
+    <link rel="stylesheet" href="{% static 'css/tablet.css' %}" media="(min-width: 768px) and (max-width: 1023px)">
+    
+    <!-- CSS Notebook (1024px - 1439px) -->
+    <link rel="stylesheet" href="{% static 'css/notebook.css' %}" media="(min-width: 1024px) and (max-width: 1439px)">
+    
+    <!-- CSS Ultrawide (1920px+) -->
+    <link rel="stylesheet" href="{% static 'css/ultrawide.css' %}" media="(min-width: 1920px)">
+    
+    <!-- CSS Wide/QHD (2560px+) -->
+    <link rel="stylesheet" href="{% static 'css/wide.css' %}" media="(min-width: 2560px)">
+
+    {% block extra_css %}{% endblock %}
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLDWMW9NKK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SLDWMW9NKK');
+    </script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    {% include 'includes/header.html' %}
+
+    <main class="main-content" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,326 @@
+/* ========== TABLET (768px - 1023px) ========== */
+
+/* Reset do scale aplicado no desktop */
+body {
+  transform: none !important;
+  width: 100% !important;
+  height: auto !important;
+  padding-bottom: 50px;
+}
+
+/* ========== HEADER ========== */
+.header {
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  min-height: auto;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+}
+
+.header__logo-container {
+  margin-right: 0;
+  flex: 0 0 100%;
+  text-align: center;
+}
+
+.header__logo {
+  max-width: 300px;
+  width: 100%;
+}
+
+.header__nav {
+  gap: 2rem;
+  justify-content: center;
+  margin-right: 0;
+  margin-left: 0;
+  width: 100%;
+}
+
+.header__nav-link {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+  padding-top: 11rem;
+  padding-bottom: 1rem;
+}
+
+.content-wrapper {
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.left-section {
+  flex: 1;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem 1rem;
+  transform: none !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-section #searchForm {
+  transform: none !important;
+  width: 100%;
+  max-width: 450px;
+}
+
+.right-section {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 1rem;
+  padding-left: 1rem !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-block {
+  max-width: 400px;
+  width: 100%;
+}
+
+.highlighted-text {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+#image {
+  max-height: 350px;
+  margin-bottom: -5px;
+}
+
+.custom-margin {
+  margin-left: 1.5rem;
+}
+
+/* ========== FORMS / SEARCH ========== */
+.search-container {
+  width: 100%;
+}
+
+.search-form {
+  align-items: center;
+  width: 100%;
+}
+
+.search-form .form-group {
+  justify-content: center;
+  width: 100%;
+}
+
+.search-form .form-control {
+  width: 100%;
+  max-width: 400px;
+  font-size: 1.1rem;
+  padding: 0.8rem;
+}
+
+.search-form .form-control::placeholder {
+  font-size: 1rem;
+}
+
+.search-form select.form-control {
+  font-size: 1rem;
+  background-position: right 1rem center;
+  background-size: 12px;
+}
+
+.search-form select.form-control option {
+  font-size: 1.05rem;
+}
+
+.search-form .form-group:has(button[type="submit"]) {
+  max-width: 400px;
+}
+
+.search-form button[type="submit"] {
+  font-size: 1rem;
+  padding: 0.6rem 1.8rem;
+  min-width: 5.5rem;
+}
+
+/* ========== RESULTS / CAROUSEL ========== */
+#resultados {
+  min-width: auto;
+  max-width: 100%;
+  width: 100%;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.resultado-item {
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: 1.5rem;
+  padding: 1.2rem;
+}
+
+.resultado-imagem img {
+  width: 80px;
+  height: 80px;
+}
+
+.resultado-dados h5 {
+  font-size: 1.1rem;
+}
+
+.resultado-dados p {
+  font-size: 0.95rem;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: 0.7rem 1rem;
+  height: 50px;
+  font-size: 0.85rem;
+}
+
+.footer__text {
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+/* ========== PÁGINAS CONTATO E SOBRE ========== */
+.contact-wrapper {
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 3rem 2rem;
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.contact-info {
+  max-width: 100%;
+  min-width: auto;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-info h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.emaildolfidoc {
+  text-align: center;
+}
+
+.emaildolfidoc a {
+  font-size: 1.2rem;
+}
+
+.social-section {
+  text-align: center;
+}
+
+.social-icons {
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-icons a {
+  font-size: 2.2rem;
+}
+
+.contact-form {
+  max-width: 100%;
+  min-width: auto;
+  width: 100%;
+  padding: 2rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font-size: 1.1rem;
+  padding: 0.9rem;
+}
+
+.contact-form textarea {
+  min-height: 160px;
+}
+
+.btn-whatsapp {
+  align-self: center;
+  width: auto;
+  min-width: 200px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* Página Sobre */
+.about-page {
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.about-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1.8rem;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.about-values {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.about-values .value-card {
+  padding: 1.8rem;
+}
+
+.about-values .value-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.about-values .value-card p {
+  font-size: 1.05rem;
+}
+
+/* Container responsivo */
+.container {
+  max-width: 900px;
+  padding-inline: 2rem;
+}
+
+/* Ajustes para tablets em modo paisagem (landscape) */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  .content-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .left-section {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .right-section {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  
+  .about-values {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

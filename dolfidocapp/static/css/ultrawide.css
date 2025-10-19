@@ -1,0 +1,72 @@
+/* ========== ULTRAWIDE (1920px+) ========== */
+
+/* 
+   Para telas maiores que 1920px, centralizamos o conteúdo
+   mantendo a proporção de 1920px no centro com margens laterais
+*/
+
+body {
+  background-color: var(--color-bg);
+}
+
+/* Wrapper para centralizar todo o conteúdo */
+.header,
+.main-content,
+.footer {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Header centralizado */
+.header {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1920px;
+  width: 100%;
+}
+
+/* Main content centralizado */
+.content-wrapper {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Ajustes finos para manter proporções */
+.left-section {
+  padding-left: 4rem;
+}
+
+.left-section #searchForm {
+  transform: translateX(4rem);
+}
+
+.right-section {
+  padding-right: 4rem;
+}
+
+/* Footer centralizado */
+.footer {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1920px;
+  width: 100%;
+}
+
+/* Páginas de conteúdo também centralizadas */
+.contact-wrapper,
+.about-page {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Container geral */
+.container {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
