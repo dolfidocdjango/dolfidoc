@@ -626,3 +626,223 @@ body {
     align-items: center;
   }
 }
+
+/* ================== RESULTADOS / CAROUSEL ================== */
+#resultados {
+  display: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.result-header h2 {
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.result-header button {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.result-header button:hover {
+  background-color: var(--color-hover);
+  transform: scale(1.05);
+}
+
+/* === Estrutura do carrossel === */
+.carousel {
+  position: relative;
+}
+
+.carousel-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 260px;
+}
+
+.carousel-item {
+  width: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.resultado-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.2rem;
+  text-align: left;
+}
+
+.resultado-imagem {
+  flex: 0 0 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resultado-imagem img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+}
+
+.resultado-dados {
+  flex: 1;
+}
+
+.resultado-dados h5 {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+}
+
+.resultado-dados p {
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+  color: var(--color-text);
+}
+
+/* === Endereços e valores === */
+.address-container {
+  margin-top: 1rem;
+  max-height: 220px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) #f2f2f2;
+}
+
+.address-container::-webkit-scrollbar {
+  width: 6px;
+}
+.address-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+}
+.address-container::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+.info-container {
+  margin-bottom: 1rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.info-left {
+  flex: 1;
+}
+
+.info-left p {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  margin: 0.2rem 0;
+}
+
+/* === Destaque de preço (R$) com contorno azul escuro === */
+.info-right p {
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary); /* 🔵 contorno azul escuro restaurado */
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  color: #f9f9f9;
+  text-align: center;
+  min-width: 80px;
+  display: inline-block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-right p:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(47, 48, 97, 0.2);
+}
+/* === Controles do carrossel === */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 3rem;
+  height: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(47, 48, 97, 0.2);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(47, 48, 97, 0.4);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+  width: 1rem;
+  height: 1rem;
+}
+
+/* === Responsividade === */
+@media (max-width: 768px) {
+  #resultados {
+    padding: 1rem;
+  }
+
+  .resultado-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .resultado-imagem {
+    flex: 0 0 auto;
+  }
+
+  .resultado-imagem img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .resultado-dados h5 {
+    font-size: 1rem;
+  }
+
+  .address-container {
+    max-height: 180px;
+  }
+}
+
