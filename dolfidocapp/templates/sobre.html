@@ -9,10 +9,11 @@
     
     <div class="about-intro">
         <p>
-            A Dolfidoc é uma plataforma inovadora que revoluciona a forma como pacientes encontram e agendam consultas médicas. 
-            Nosso objetivo é conectar pessoas aos melhores profissionais de saúde, tornando o acesso à medicina de qualidade 
-            mais simples, rápido e eficiente. Com uma interface intuitiva e informações completas, facilitamos a busca por 
-            especialistas em diversas áreas da medicina, garantindo que você encontre o atendimento ideal para suas necessidades.
+            É inconcebível que, em plena era da informação, ainda seja tão difícil encontrar respostas simples sobre saúde.
+            Quem oferece a consulta pneumológica mais acessível na sua cidade?
+            Quais ortopedistas atendem mais perto da sua casa?
+            Existe um neuro-oftalmologista no seu município?
+            A falta de informação ainda é uma barreira real — E é exatamente isso que a Dolfidoc veio eliminar.
         </p>
         <p>
             Acreditamos que a tecnologia pode transformar a saúde, tornando-a mais acessível e humanizada. Por isso, trabalhamos 
@@ -22,36 +23,59 @@
     </div>
 
     <div class="about-values">
-        <div class="value-card">
-            <h3>Missão</h3>
-            <p>
-                Nossa missão é democratizar o acesso à saúde de qualidade, conectando pacientes a profissionais médicos 
-                qualificados de forma rápida, transparente e eficiente. Buscamos facilitar a jornada do paciente na busca 
-                por atendimento médico, oferecendo informações completas e confiáveis sobre especialistas e clínicas em 
-                todo o Brasil.
-            </p>
+        <div class="value-card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <h3>Missão</h3>
+                </div>
+                <div class="card-back">
+                    <p>
+                        Empoderar a população, revelando a amplitude dos serviços médicos existentes e
+                        facilitando o acesso a cuidados especializados de forma rápida, justa e inclusiva.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <div class="value-card">
-            <h3>Visão</h3>
-            <p>
-                Ser a principal plataforma de busca e agendamento de consultas médicas do Brasil, reconhecida pela excelência 
-                no atendimento, inovação tecnológica e compromisso com a saúde e bem-estar da população. Queremos transformar 
-                a experiência de cuidado com a saúde, tornando-a mais acessível, humanizada e centrada nas necessidades do 
-                paciente.
-            </p>
+        <div class="value-card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <h3>Visão</h3>
+                </div>
+                <div class="card-back">
+                    <p>
+                        Ser a principal referência nacional de inteligência informacional em saúde,
+                        transformando dados públicos em inclusão, equidade e bem-estar social.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <div class="value-card">
-            <h3>Valores</h3>
-            <p>
-                <strong>Transparência:</strong> Fornecemos informações claras e precisas sobre profissionais e serviços.<br><br>
-                <strong>Excelência:</strong> Buscamos constantemente a melhoria contínua em nossos processos e atendimento.<br><br>
-                <strong>Inovação:</strong> Utilizamos tecnologia de ponta para facilitar o acesso à saúde.<br><br>
-                <strong>Compromisso:</strong> Estamos dedicados ao bem-estar e satisfação de nossos usuários.
-            </p>
+        <div class="value-card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <h3>Valores</h3>
+                </div>
+                <div class="card-back">
+                    <p>
+                        <strong>Transparência:</strong> Garantir que as informações sobre serviços médicos sejam acessíveis, verificáveis e apresentadas de forma neutra e imparcial.<br><br>
+                        <strong>Ética:</strong> Utilizar tecnologia e dados de forma ética, respeitando a privacidade e priorizando o interesse público.<br><br>
+                        <strong>Sustentabilidade:</strong> Promover um modelo digital duradouro, que equilibre eficiência econômica com compromisso social e ambiental.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 {% endblock %}
+
+<script>
+document.querySelectorAll('.value-card').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('flipped');
+  });
+});
+</script>
+
 

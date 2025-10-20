@@ -267,78 +267,81 @@ body {
 }
 
 /* ========== PÁGINAS CONTATO E SOBRE ========== */
-.contact-wrapper {
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem 1rem;
-  margin: 2rem auto;
+/* ===== AJUSTE MOBILE — CONTATO ===== */
+@media (max-width: 767px) {
+  /* Wrapper alinhado à esquerda, mas mantendo respiro lateral */
+  .contact-wrapper {
+    flex-direction: column;
+    align-items: flex-start;     /* muda de center para left */
+    justify-content: flex-start;
+    padding: 2rem 1.2rem;        /* pequeno espaço interno */
+    margin: 2rem auto;
+    width: 100%;
+    gap: 1.5rem;
+  }
+
+  /* Bloco de informações alinhado à esquerda */
+  .contact-info {
+    width: 100%;
+    text-align: left;            /* texto à esquerda */
+    padding-left: 0.5rem;
+  }
+
+  .contact-info h1 {
+    text-align: left;
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .emaildolfidoc {
+    text-align: left;
+  }
+
+  .social-section {
+    text-align: left;
+    margin-top: 0.8rem;
+  }
+
+  .social-icons {
+    justify-content: flex-start; /* ícones alinhados à esquerda */
+    gap: 1rem;
+  }
+
+  /* Formulário centralizado e adaptado */
+  .contact-form {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+    margin-top: 1rem;
+    background-color: rgba(47, 48, 97, 0.9);
+    border-radius: 16px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 1rem;
+    padding: 0.8rem;
+    border-radius: 18px;
+  }
+
+  .contact-form textarea {
+    min-height: 120px;
+  }
+
+  .btn-whatsapp {
+    width: 100%;
+    align-self: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+  }
+
+  .btn-whatsapp .material-icons {
+    font-size: 1.3rem;
+  }
 }
 
-.contact-info {
-  max-width: 100%;
-  min-width: auto;
-  width: 100%;
-}
-
-.contact-info h1 {
-  text-align: center;
-  font-size: 1.6rem;
-}
-
-.emaildolfidoc {
-  text-align: center;
-}
-
-.emaildolfidoc a {
-  font-size: 1rem;
-}
-
-.social-section {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.social-section p {
-  font-size: 0.95rem;
-}
-
-.social-icons {
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-.social-icons a {
-  font-size: 2rem;
-}
-
-.contact-form {
-  max-width: 100%;
-  min-width: auto;
-  width: 100%;
-  padding: 1.5rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-  font-size: 1rem;
-  padding: 0.8rem;
-}
-
-.contact-form textarea {
-  min-height: 120px;
-}
-
-.btn-whatsapp {
-  align-self: center;
-  width: 100%;
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-}
-
-.btn-whatsapp .material-icons {
-  font-size: 1.2rem;
-}
 
 /* Página Sobre */
 .about-page {
