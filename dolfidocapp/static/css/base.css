@@ -288,7 +288,7 @@ h1 {
   border-top: 1px solid #e9ecef;
   z-index: 999;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   height: 53px;
 }
 
