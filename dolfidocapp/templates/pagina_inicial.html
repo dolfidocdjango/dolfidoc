@@ -16,34 +16,15 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
-    <!-- CSS Base (sempre carregado) -->
+    <!-- CSS principal -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    
-    <!-- CSS Desktop (padrão) -->
     <link rel="stylesheet" href="{% static 'css/desktop.css' %}">
-    
-    <!-- CSS Mobile (até 767px) -->
     <link rel="stylesheet" href="{% static 'css/mobile.css' %}" media="(max-width: 767px)">
-    
-    <!-- CSS Tablet (768px - 1023px) -->
     <link rel="stylesheet" href="{% static 'css/tablet.css' %}" media="(min-width: 768px) and (max-width: 1023px)">
-    
-    <!-- CSS Ultrawide (1920px+) -->
     <link rel="stylesheet" href="{% static 'css/ultrawide.css' %}" media="(min-width: 1920px)">
-    
-    <!-- CSS Wide/QHD (2560px+) -->
     <link rel="stylesheet" href="{% static 'css/wide.css' %}" media="(min-width: 2560px)">
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLDWMW9NKK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-SLDWMW9NKK');
-    </script>
-
 </head>
+
 <body>
     {% include 'includes/header.html' %}
 
@@ -52,18 +33,15 @@
             <div class="left-section">
                 {% include 'includes/search_form.html' %}
 
-                <div id="resultados" style="display: none;" role="region" aria-live="polite" aria-label="Resultados da pesquisa">
+                <div id="resultados" style="display:none;" role="region" aria-live="polite" aria-label="Resultados da pesquisa">
                     <div class="result-header">
                         <h2 id="result-header-title">Resultados da Pesquisa</h2>
                         <button id="restart" class="btn btn-secondary" aria-label="Recomeçar busca">Recomeçar</button>
                     </div>
-                    <p id="especialidade"></p>
-                    <p id="cidade"></p>
                     
                     <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="false" role="region" aria-label="Carrossel de resultados">
-                        <div class="carousel-inner" id="carousel-inner">
-                            <!-- Resultados serão inseridos aqui via JavaScript -->
-                        </div>
+                        <div class="carousel-inner" id="carousel-inner"></div>
+
                         <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev" aria-label="Resultado anterior">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Anterior</span>
@@ -90,23 +68,18 @@
 
     {% include 'includes/footer.html' %}
 
-    <!-- jQuery -->
+    <!-- jQuery / Bootstrap / Flatpickr -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <!-- Flatpickr -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    
-    <!-- Custom JavaScript -->
+
     <script>
     $(document).ready(function() {
-        // Initialize Flatpickr
         flatpickr("#id_date", {
             enableTime: false,
             dateFormat: "d/m/Y",
         });
 
-        // Load search results
         function loadPage() {
             $.ajax({
                 url: "{% url 'medinfo' %}",
@@ -115,51 +88,85 @@
                 success: function(data) {
                     var carouselInner = $('#carousel-inner');
                     carouselInner.empty();
-                    
-                    Object.keys(data.medicos).forEach(function(crm, index) {
-                        var medicos = data.medicos[crm];
-                        var activeClass = index === 0 ? 'active' : '';
 
-                        var carouselItem = '<div class="carousel-item ' + activeClass + '">' +
-                        '<div class="resultado-item">' +
-                            '<div class="resultado-imagem">' +
-                                '<img src="/medico/imagem/' + medicos[0].medico_id + '/" alt="Foto do Dr(a). ' + medicos[0].nome + ' - Fonte: CRMS/CFM">' +
-                            '</div>' +
-                            '<div class="resultado-dados">' +
-                                '<h5>' + medicos[0].nome + '</h5>' +
-                                '<p><b><i>CRM: ' + crm + '</b></i></p>' +
-                                '<p><b>Especialidade:</b> ' + medicos[0].especialidade + '</p>' +
-                            '</div>' +
-                        '</div>';
-
-                        var addressContainer = '<div class="address-container scrollable">';
-                        medicos.forEach(function(medico) {
-                            addressContainer += '<div class="info-container">' +
-                                '<div class="info-row">' +
-                                    '<div class="info-left">' +
-                                        '<p><b>Empresa:</b> ' + medico.nome_fantasia + '</p>' +
-                                        '<p><b>CNPJ:</b> ' + medico.cnpj + '</p>' +
-                                        '<p><b>Contato:</b> ' + medico.numero + '</p>' +
-                                    '</div>' +
-                                    '<div class="info-right">' +
-                                        '<p> R$ ' + medico.valor + '</p>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>';
+                    if (data.agrupado) {
+                        // === MODO AGRUPADO (ANTIGO) ===
+                        Object.keys(data.medicos).forEach(function(crm, index) {
+                            var medicos = data.medicos[crm];
+                            var activeClass = index === 0 ? 'active' : '';
+                            var itemHTML = `
+                                <div class="carousel-item ${activeClass}">
+                                    <div class="resultado-item">
+                                        <div class="resultado-imagem">
+                                            <img src="/medico/imagem/${medicos[0].medico_id}/" alt="Foto do Dr(a). ${medicos[0].nome}">
+                                        </div>
+                                        <div class="resultado-dados">
+                                            <h5>${medicos[0].nome}</h5>
+                                            <p><b><i>CRM:</i></b> ${crm}</p>
+                                            <p><b>Especialidade:</b> ${medicos[0].especialidade}</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-container scrollable">
+                            `;
+                            medicos.forEach(function(m) {
+                                itemHTML += `
+                                    <div class="info-container">
+                                        <div class="info-row">
+                                            <div class="info-left">
+                                                <p><b>Empresa:</b> ${m.nome_fantasia}</p>
+                                                <p><b>CNPJ:</b> ${m.cnpj}</p>
+                                                <p><b>Contato:</b> ${m.numero}</p>
+                                            </div>
+                                            <div class="info-right">
+                                                <p>R$ ${m.valor}</p>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                            });
+                            itemHTML += '</div></div>';
+                            carouselInner.append(itemHTML);
                         });
-
-                        addressContainer += '</div>';
-                        carouselItem += addressContainer + '</div>';
-                        carouselInner.append(carouselItem);
-                    });
+                    } else {
+                        // === MODO NOVO (REPLICADO COM MESMO ESTILO) ===
+                        data.medicos.forEach(function(medico, index) {
+                            var activeClass = index === 0 ? 'active' : '';
+                            var itemHTML = `
+                                <div class="carousel-item ${activeClass}">
+                                    <div class="resultado-item">
+                                        <div class="resultado-imagem">
+                                            <img src="/medico/imagem/${medico.id}/" alt="Foto do Dr(a). ${medico.nome}">
+                                        </div>
+                                        <div class="resultado-dados">
+                                            <h5>${medico.nome}</h5>
+                                            <p><b><i>CRM:</i></b> ${medico.crm}</p>
+                                            <p><b>Especialidade:</b> ${medico.especialidade}</p>
+                                        </div>
+                                    </div>
+                                    <div class="address-container scrollable">
+                                        <div class="info-container">
+                                            <div class="info-row">
+                                                <div class="info-left">
+                                                    <p><b>Empresa:</b> ${medico.nome_fantasia}</p>
+                                                    <p><b>CNPJ:</b> ${medico.cnpj}</p>
+                                                    <p><b>Contato:</b> ${medico.numero}</p>
+                                                    <p><b>Endereço:</b> ${medico.logradouro || ''}, ${medico.complemento || ''} - ${medico.cidade_uf}</p>
+                                                </div>
+                                                <div class="info-right">
+                                                    <p>R$ ${medico.valor}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            carouselInner.append(itemHTML);
+                        });
+                    }
 
                     $('#resultados').show();
                     $('#search-container').hide();
 
-                    // Update carousel counter
-                    var currentCarouselIndex = 1;
-                    var totalCarouselItems = $('#carousel-inner .carousel-item').length;
-                    $('#result-header-title').text('Resultados da Pesquisa ' + currentCarouselIndex + ' de ' + totalCarouselItems);
+                    var total = $('#carousel-inner .carousel-item').length;
+                    $('#result-header-title').text('Resultados da Pesquisa 1 de ' + total);
                 },
                 error: function() {
                     alert('Erro ao carregar os resultados. Por favor, tente novamente.');
@@ -167,49 +174,23 @@
             });
         }
 
-        // Form submission
-        $('#searchForm').on('submit', function(event) {
-            event.preventDefault();
-            
-            // Basic validation
-            var isValid = true;
-            $(this).find('select[required], input[required]').each(function() {
-                if (!$(this).val() || $(this).val() === $(this).find('option:first').val()) {
-                    $(this).addClass('form-control--error');
-                    isValid = false;
-                } else {
-                    $(this).removeClass('form-control--error');
-                }
-            });
-
-            if (isValid) {
-                loadPage();
-            }
+        $('#searchForm').on('submit', function(e) {
+            e.preventDefault();
+            loadPage();
         });
-    
-        // Restart button
+
         $('#restart').on('click', function() {
             $('#resultados').hide();
             $('#search-container').show();
             $('#searchForm')[0].reset();
-            $('#searchForm').find('.form-control--error').removeClass('form-control--error');
         });
 
-        // Carousel slide event
         $('#carouselExample').on('slid.bs.carousel', function(e) {
-            var currentCarouselIndex = $(e.relatedTarget).index() + 1;
-            var totalCarouselItems = $('#carousel-inner .carousel-item').length;
-            $('#result-header-title').text('Resultados da Pesquisa ' + currentCarouselIndex + ' de ' + totalCarouselItems);
-        });
-
-        // Remove error styling on input change
-        $('.form-control').on('change input', function() {
-            if ($(this).val()) {
-                $(this).removeClass('form-control--error');
-            }
+            var index = $(e.relatedTarget).index() + 1;
+            var total = $('#carousel-inner .carousel-item').length;
+            $('#result-header-title').text('Resultados da Pesquisa ' + index + ' de ' + total);
         });
     });
     </script>
 </body>
 </html>
-
